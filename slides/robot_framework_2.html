@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Keyword Calls</title>
+    <link rel="stylesheet" href="slides.css"> 
+</head>
+<body>
+    <h1>Robot Framework - Keyword Calls</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Keyword calls are highlighted in the example test case file on the right. They are the main building blocks of test cases. Typically they are written in Title Case and imperative form ("Connect To Device"). They are used to execute code that can be defined either in Robot Framework itself or in external libraries with Python.<br><br>
+        When a keyword is called, Robot Framework looks for its definition from the various places where the keyword can be defined - the file itself, custom libraries, imported libraries or separate resource files. If it is not found anywhere, it raises an error.<br><br>
+        Keywords may take arguments and return values. They are similar to functions in proper programming languages.
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code>*** Settings ***
+Library    CustomLibrary.py
+
+*** Variables ***
+${SERIAL_PORT}    1234
+
+*** Test Cases ***
+Test LED Timer
+    [Setup]   <span class="kw">Connect To Device</span>   ${SERIAL_PORT}
+    <span class="kw">Turn On LED</span>
+    ${led_status}=    <span class="kw">Get LED Status</span>
+    <span class="kw">Should Be Equal</span>    ${led_status}    ON
+    <span class="kw">Sleep</span>    5s
+    ${led_status}=    <span class="kw">Get LED Status</span>
+    <span class="kw">Should Be Equal</span>    ${led_status}    OFF
+    [Teardown]    <span class="kw">Disconnect From All Devices</span>
+
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

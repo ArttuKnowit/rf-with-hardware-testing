@@ -67,6 +67,7 @@ body {
 p {
   margin-bottom: 0.85rem;
   line-height: 1.7;
+  font-size: large;
 }
 
 p:last-child {
@@ -76,6 +77,7 @@ p:last-child {
 ul, ol {
   padding-left: 1.5rem;
   margin-bottom: 0.85rem;
+  font-size: large;
 }
 
 ul:last-child,
@@ -107,6 +109,12 @@ li:last-child {
 .side-by-side > div {
   flex: 1;
   min-width: 0;   /* prevents flex children from overflowing */
+}
+
+.side-by-side > .example-code {
+  flex: 0 0 65%;
+  max-width: 65%;
+  min-width: 0;
 }
 
 /* Stacks images vertically, all sharing the same full width */
@@ -249,7 +257,7 @@ pre {
   font-family: var(--font-code);
   font-size: 0.92rem;
   line-height: 1.65;
-  padding: 1.2rem 1.5rem;
+  padding: 0.2rem 0.2rem;
   border-radius: 8px;
   border-left: 4px solid var(--accent);
   overflow-x: auto;
@@ -307,12 +315,16 @@ pre code {
 }
 
 /* Syntax hint classes (manual, no JS highlighter dependency) */
-.kw  { color: #7EC8E3; }   /* keyword */
-.str { color: #B5EAD7; }   /* string */
-.cmt { color: #8E8278; font-style: italic; }   /* comment */
-.num { color: #FFD8A8; }   /* number */
-.fn  { color: #D4A5F5; }   /* function / keyword call */
-.var { color: #FAC898; }   /* variable */
+/* These classes only apply within code elements */
+
+code .kw       { color: #FFEB3B; }        /* keyword - yellow */
+code .var      { color: #87CEEB; }       /* variable - light blue */
+code .kw-stg   { color: #DA70D6; }       /* keyword storage - purple */
+code .suite-stg { color: #0000CD; }      /* suite storage - dark blue */
+code .str      { color: #FF6B6B; }       /* string - red */
+code .cmt      { color: #8E8278; font-style: italic; }   /* comment */
+code .num      { color: #FFD8A8; }       /* number */
+code .fn       { color: #D4A5F5; }       /* function / keyword call */
 
 /* =====================================================================
    CALLOUT BOXES
@@ -344,7 +356,11 @@ pre code {
 .callout.warning .callout-label { color: var(--accent-warm); }
 .callout.tip     .callout-label { color: var(--accent-green); }
 .callout.task    .callout-label { color: var(--accent-alt); }
-
+.example-code {
+  width: 65%;
+  max-width: 65%;
+  min-width: 0;
+}
 /* =====================================================================
    TABLES
    ===================================================================== */

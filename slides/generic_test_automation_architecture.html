@@ -12,8 +12,8 @@
         </p>
         <ul>
             <li><strong>Definition Layer</strong> which defines the test cases and test data.<br>In the case of Robot Framework, this is the test case files and resource files, as well as any data files used in testing.</li>
-            <li><strong>Execution Layer</strong> which executes the tests and collects results. This means Robot Framework, being the tool that executes the tests, falls into this layer. Note that the individual .robot files are part of the definition layer, and Robot Framework as an executable tool and runnable program is part of the execution layer.</li>
-            <li><strong>Adaptation Layer</strong> which adapts the test automation framework to different environments and technologies. This is whatever tools and alyers are used between the execution layer and system under test to connect them properly. In this course, we will use Python, but it can be argued that the python serial library, the USB cord connecting the device to the machine running tests and any other software used in connecting the execution layer and SUT are part of this layer.</li>
+            <li><strong>Execution Layer</strong> which executes the tests and collects results. This means Robot Framework itself. Individual .robot files are part of the definition layer, and Robot Framework as an executable tool and runnable program is part of the execution layer.</li>
+            <li><strong>Adaptation Layer</strong> which adapts the test automation framework to different environments and technologies. This consists tools used to connect to and control the system under test. This is usually provided by a lower level programming language such as python, and in case SUT being hardware, any hardware-specific drivers or libraries.</li>
             <li><strong>System Under Test (SUT)</strong> which is the application or system being tested. This includes both the hardware and firmware of the device that is being tested, or in case of software being under test, any part of the software system that is required to run it.</li>
         </ul>
     </div>
