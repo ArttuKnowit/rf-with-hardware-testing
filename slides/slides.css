@@ -1,0 +1,465 @@
+/* =====================================================================
+   slides.css — Robot Framework Hardware Testing Course
+   Light warm theme. Use <section class="slide"> for each slide.
+   ===================================================================== */
+
+/* --- Google Fonts import (Inter for body) --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- CSS Custom Properties --- */
+:root {
+  /* Colours */
+  --bg:           #FAF8F5;
+  --bg-alt:       #F2EDE6;
+  --bg-code:      #EDE0CC;
+  --bg-code-dark: #2E2A24;
+  --surface:      #FFFFFF;
+  --border:       #D8CFC4;
+
+  --text:         #2C2C2C;
+  --text-muted:   #6B6560;
+  --text-inverse: #F5F0EB;
+
+  --accent:       #2D7D9A;   /* teal-blue */
+  --accent-alt:   #5B4FCF;   /* indigo, for secondary highlights */
+  --accent-warm:  #C0622A;   /* warm terracotta, for warnings/notes */
+  --accent-green: #2E8B57;   /* sea green, for success / "good" code */
+
+  /* Typography */
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-code: 'Courier New', Courier, monospace;
+
+  /* Slide dimensions */
+  --slide-w: 1200px;
+  --slide-h: 675px;   /* 16:9 */
+
+  /* Spacing */
+  --gap: 2rem;
+  --gap-sm: 1rem;
+}
+
+/* --- Reset & base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 22px;
+  background: #E8E2D9;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: #E8E2D9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+
+/* --- Default spacing for block elements (applies everywhere) --- */
+
+p {
+  margin-bottom: 0.85rem;
+  line-height: 1.7;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.85rem;
+}
+
+ul:last-child,
+ol:last-child {
+  margin-bottom: 0;
+}
+
+li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+/* =====================================================================
+   LAYOUT HELPERS
+   ===================================================================== */
+
+/* Lays out direct child divs side by side, left to right */
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--gap);
+}
+
+.side-by-side > div {
+  flex: 1;
+  min-width: 0;   /* prevents flex children from overflowing */
+}
+
+/* Stacks images vertically, all sharing the same full width */
+.vertically-stacked-images {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gap-sm);
+}
+
+.vertically-stacked-images img {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  display: block;
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.vertically-stacked-images img:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* =====================================================================
+   SLIDE COMPONENT
+   ===================================================================== */
+
+.slide {
+  width: var(--slide-w);
+  min-height: var(--slide-h);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  padding: 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-sm);
+  position: relative;
+  page-break-inside: avoid;
+}
+
+/* Title slide variant */
+.slide.title {
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #FAF8F5 60%, #EDE0CC 100%);
+}
+
+/* Accent bar at the top of every slide */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-alt) 100%);
+  border-radius: 12px 12px 0 0;
+}
+
+/* =====================================================================
+   TYPOGRAPHY
+   ===================================================================== */
+
+.slide h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.slide h2 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+
+.slide h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+/* Subtitle line under h1/h2 */
+.slide .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 0.4rem;
+}
+
+.slide p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 78ch;
+}
+
+.slide ul,
+.slide ol {
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.slide li {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.slide li::marker {
+  color: var(--accent);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+em {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* =====================================================================
+   CODE BLOCKS
+   ===================================================================== */
+
+pre {
+  background: #1E1E1E;
+  color: #D4D4D4;
+  font-family: var(--font-code);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  overflow-x: auto;
+
+  /* Render whitespace and newlines exactly as written in the HTML source */
+  white-space: pre;
+
+  /* Tab characters render as 4-space width, cross-browser */
+  -moz-tab-size: 4;
+  tab-size: 4;
+
+  /* Disable typographic features that would alter characters */
+  font-variant-ligatures: none;   /* prevents -> becoming →, == becoming ≡ etc. */
+  font-feature-settings: "liga" 0, "calt" 0;
+  letter-spacing: 0;
+  word-spacing: 0;
+  text-transform: none;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* Optional: language label via data attribute */
+pre[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  opacity: 0.85;
+}
+
+/* Inline code */
+code {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+  background: var(--bg-code);
+  color: var(--accent-warm);
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Code inside pre — reset inline styles */
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+  font-weight: inherit;
+}
+
+/* Syntax hint classes (manual, no JS highlighter dependency) */
+.kw  { color: #7EC8E3; }   /* keyword */
+.str { color: #B5EAD7; }   /* string */
+.cmt { color: #8E8278; font-style: italic; }   /* comment */
+.num { color: #FFD8A8; }   /* number */
+.fn  { color: #D4A5F5; }   /* function / keyword call */
+.var { color: #FAC898; }   /* variable */
+
+/* =====================================================================
+   CALLOUT BOXES
+   ===================================================================== */
+
+.callout {
+  border-left: 4px solid var(--accent);
+  background: #EAF5FA;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.callout.note    { border-color: var(--accent);       background: #EAF5FA; }
+.callout.warning { border-color: var(--accent-warm);  background: #FDF2EB; }
+.callout.tip     { border-color: var(--accent-green); background: #EBF6F0; }
+.callout.task    { border-color: var(--accent-alt);   background: #F0EEFC; }
+
+.callout .callout-label {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.callout.note    .callout-label { color: var(--accent); }
+.callout.warning .callout-label { color: var(--accent-warm); }
+.callout.tip     .callout-label { color: var(--accent-green); }
+.callout.task    .callout-label { color: var(--accent-alt); }
+
+/* =====================================================================
+   TABLES
+   ===================================================================== */
+
+.slide table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.98rem;
+}
+
+.slide th {
+  background: var(--bg-alt);
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.slide td {
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+
+.slide tr:last-child td {
+  border-bottom: none;
+}
+
+.slide tr:nth-child(even) td {
+  background: var(--bg-alt);
+}
+
+/* =====================================================================
+   TWO-COLUMN LAYOUT HELPER
+   ===================================================================== */
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+
+.columns.wide-left  { grid-template-columns: 3fr 2fr; }
+.columns.wide-right { grid-template-columns: 2fr 3fr; }
+
+/* =====================================================================
+   SLIDE FOOTER (optional slide number / section label)
+   ===================================================================== */
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+.slide-footer .section-label {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+/* =====================================================================
+   DIVIDER / HORIZONTAL RULE
+   ===================================================================== */
+
+.slide hr {
+  border: none;
+  border-top: 4px solid var(--border);
+  margin: 0.5rem 0;
+}
+
+/* =====================================================================
+   BADGE / TAG
+   ===================================================================== */
+
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--bg-alt);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.badge.accent { background: var(--accent);     color: var(--text-inverse); border-color: var(--accent); }
+.badge.indigo { background: var(--accent-alt);  color: var(--text-inverse); border-color: var(--accent-alt); }
+.badge.warm   { background: var(--accent-warm); color: var(--text-inverse); border-color: var(--accent-warm); }
+.badge.green  { background: var(--accent-green);color: var(--text-inverse); border-color: var(--accent-green); }
+
+/* =====================================================================
+   PRINT / FULLSCREEN OVERRIDES
+   ===================================================================== */
+
+@media print {
+  body { background: white; padding: 0; gap: 0; }
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+}
