@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Variables</title>
+    <link rel="stylesheet" href="slides.css"> 
+</head>
+<body>
+    <h1>Robot Framework - Variables</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Variables are used just like in any programming language, to store data that can be used later in the test cases. They have a prefix character (usually $) and are enclosed in curly braces {}. <br><br>
+        They can be defined in various places and scopes, with the rule of thumb that the first definition is used for <b>static variables</b>, and last definition for <b>dynamic variables</b>. Static variables are defined at a higher scope and can be accessed from multiple test cases. Dynamic variables are defined within a specific scope (e.g., test case level) and can only be accessed within that scope. Typically static variables are written in CAPITAL LETTERS and dynamic variables in lower case.<br><br>
+        In this example, ${SERIAL_PORT} is defined in the Variables section and has suite scope, while ${led_status} is defined dynamically in the test case and has test case scope. Variables can also be defined from the command line, from external variable or resource files, or within custom libraries.
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Settings ***</span>
+Library    CustomLibrary.py
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${SERIAL_PORT}</span>    1234
+
+<span class="section-header">*** Test Cases ***</span>
+Test LED Timer
+    [Setup]   <span class="kw">Connect To Device</span>   <span class="var">${SERIAL_PORT}</span>
+    <span class="kw">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw">Get LED Status</span>
+    <span class="kw">Should Be Equal</span>    <span class="var">${led_status}</span>    ON
+    <span class="kw">Sleep</span>    5s
+    <span class="var">${led_status}</span>=    <span class="kw">Get LED Status</span>
+    <span class="kw">Should Be Equal</span>    <span class="var">${led_status}</span>    OFF
+    [Teardown]    <span class="kw">Disconnect From All Devices</span>
+
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

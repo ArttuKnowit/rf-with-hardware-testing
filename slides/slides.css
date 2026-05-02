@@ -320,6 +320,7 @@ pre code {
 code .kw       { color: #FFEB3B; }        /* keyword - yellow */
 code .var      { color: #87CEEB; }       /* variable - light blue */
 code .kw-stg   { color: #DA70D6; }       /* keyword storage - purple */
+code .section-header   { color: #db03d4; }
 code .suite-stg { color: #0000CD; }      /* suite storage - dark blue */
 code .str      { color: #FF6B6B; }       /* string - red */
 code .cmt      { color: #8E8278; font-style: italic; }   /* comment */

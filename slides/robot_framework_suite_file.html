@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - File Sections</title>
+    <link rel="stylesheet" href="slides.css"> 
+</head>
+<body>
+    <h1>Robot Framework - File Sections</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Suite files have a specific structure with different sections. The possible sections in a suite file are:
+            <ul>
+                <li>Settings
+                    <ul>
+                        <li>Used to import libraries, resource files and variables, to set suite level setup and teardown tasks, and to define other settings related to the test suite.</li>
+                    </ul>
+                </li>
+                <li>Variables
+                    <ul>
+                        <li>Used to define static variables on suite level scope.</li>
+                    </ul>
+                </li>
+                <li>Test Cases
+                    <ul>
+                        <li>Used to define test cases, which are the main building blocks of test suites.</li>
+                    </ul>
+                </li>
+                <li>Keywords
+                    <ul>
+                        <li>Used to define user keywords, which are reusable building blocks that can be called from test cases or other keywords.</li>
+                    </ul>
+                </li>
+                <li>Comments
+                    <ul>
+                        <li>Used to write comments that are ignored by Robot Framework and are only for documentation purposes.</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Settings ***</span>
+Library    CustomLibrary.py
+
+<span class="section-header">*** Variables ***</span>
+${SERIAL_PORT}    1234
+
+<span class="section-header">*** Test Cases ***</span>
+Test LED Timer
+    [Setup]   Connect To Device    ${SERIAL_PORT}
+    Turn On LED
+    ${led_status}=    Get LED Status
+    Should Be Equal    ${led_status}    ON
+    Sleep    5s
+    ${led_status}=    Get LED Status
+    Should Be Equal    ${led_status}    OFF
+    [Teardown]    Disconnect From All Devices
+
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

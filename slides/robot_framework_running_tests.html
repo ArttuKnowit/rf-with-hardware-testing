@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Running Tests</title>
+    <link rel="stylesheet" href="slides.css"> 
+</head>
+<body>
+    <h1>Robot Framework - Running Tests</h1>
+    <div class="side-by-side">
+        <div>
+        <p>To run tests with Robot Framework, you can use the command line interface. The basic command to run tests is 
+            <br><code>robot target_file_or_directory</code>
+            <br>There are many flags or command line variables that can be given to customize the test run. The most common or useful ones are:
+            <ul>
+                <li><code>--include</code> and <code>--exclude</code> or shorter versions <code>-i</code> and <code>-e</code> - used to include or exclude tests with specific tags.</li>
+                <li><code>--variable</code> or <code>-v</code> - used to define variables from the command line.</li>
+                <li><code>--outputdir</code> or <code>-d</code> - used to specify the output directory for test results.</li>
+                <li><code>--rerunfailed</code> or <code>-R</code> - used to rerun failed tests from a previous test run.</li>
+                <li><code>--test</code> or <code>-t</code> - used to run specific test cases by name.</li>
+            </ul>
+            In addition, there are many other flags and options that can be used to customize the test
+
+        </div>
+        <div class="example-code">
+            <pre style="white-space: pre-wrap;"><code>~project-root-folder$ robot --include critical --variable SERIAL_PORT:1234 --outputdir results tests/
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>
