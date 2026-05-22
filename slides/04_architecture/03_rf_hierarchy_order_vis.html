@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hierarchy and Execution Order</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+    <body>
+        <h1>Hierarchy and Execution Order</h1>
+        <div class="side-by-side">
+            <div style="max-width: 32%;">
+                <pre><code>root_suite/
+├── Suite A/
+│   ├── Suite_A1/
+│   │   ├── <span class="tc-name">a1_tests_a.robot</span>
+│   │   └── <span class="tc-name">a1_tests_b.robot</span>
+│   └── Suite_A2/
+│       └── <span class="tc-name">another_suite_file.robot</span>
+└── Suite B/
+    └── <span class="tc-name">suite_file.robot</span>
+                </code></pre>
+            </div>
+            <div class="image-slide">
+                <img src="../_static/robot_framework_hierarchy.png" 
+                alt="Architecture Hierarchy">
+            </div>
+        </div>
+    </body>
+</html>

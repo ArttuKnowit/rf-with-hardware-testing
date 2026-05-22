@@ -2,7 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Robot Framework - Variables</title>
-    <link rel="stylesheet" href="slides.css"> 
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
 </head>
 <body>
     <h1>Robot Framework - Variables</h1>
@@ -16,21 +18,21 @@
         </div>
         <div class="example-code">
             <pre><code><span class="section-header">*** Settings ***</span>
-Library    CustomLibrary.py
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
 
 <span class="section-header">*** Variables ***</span>
-<span class="var">${SERIAL_PORT}</span>    1234
+<span class="var">${SERIAL_PORT}</span>    <span class="num">1234</span>
 
 <span class="section-header">*** Test Cases ***</span>
-Test LED Timer
-    [Setup]   <span class="kw">Connect To Device</span>   <span class="var">${SERIAL_PORT}</span>
-    <span class="kw">Turn On LED</span>
-    <span class="var">${led_status}</span>=    <span class="kw">Get LED Status</span>
-    <span class="kw">Should Be Equal</span>    <span class="var">${led_status}</span>    ON
-    <span class="kw">Sleep</span>    5s
-    <span class="var">${led_status}</span>=    <span class="kw">Get LED Status</span>
-    <span class="kw">Should Be Equal</span>    <span class="var">${led_status}</span>    OFF
-    [Teardown]    <span class="kw">Disconnect From All Devices</span>
+<span class="tc-name">Test LED Timer</span>
+    <span class="kw-stg">[Setup]</span>   <span class="kw-call">Connect To Device</span>   <span class="var">${SERIAL_PORT}</span>
+    <span class="kw-call">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">ON</span>
+    <span class="kw-call">Sleep</span>    <span class="str">5s</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">OFF</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
 
             </code></pre>
         </div>

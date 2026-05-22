@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 01 - Hello World</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 01 - Hello World</h1>
+    <div class="side-by-side">
+        <div>
+            <p>
+                <ol>
+                    <li>Create a new file called <code>hello_world.robot</code> under <code>suites/examples/</code></li>
+                    <li>Create a section for variables and define a variable called <code>${NAME}</code> with a value of your preference</li>
+                    <li>Create a section for test cases</li>
+                    <li>Create a new test case called <code>Greeting test</code></li>
+                    <li>Within the test case body, call the keyword <code>Log To Console</code> with the argument <code>Hello, ${NAME}</code></li>
+                </ol>
+            </p> 
+        </div>
+        <div class="example-code">
+            <details class="spoiler">
+            <pre><code>
+<span class="section-header">*** Variables ***</span>
+<span class="var">${NAME}</span>    Your Name
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Greeting Test</span>
+    <span class="kw-call">Log To Console</span>    <span class="var">Hello, ${NAME}</span>
+    
+</details>
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

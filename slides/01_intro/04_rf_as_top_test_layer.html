@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Top Test Layer</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - Top Test Layer</h1>
+    <div class="side-by-side">
+        <div>
+        <p>To best utilise Robot Framework as a test framework, each test case should be built with top-level keywords in Robot Framework, and all technical details should be left for the adaption layer. Test cases should consist of keywords that describe in high level what is happening in the test case. These keywords are like functions and should be designed and constructed for re-usability. The reason to use Robot Framework relies in built-in reporting tools and capabilities.<br><br>
+        Consider the examples on the right: <ul>
+            <li><b>Test Satellite GPS Function</b> is an example of a test case that has too little business-level description. It is not clear what the test case is doing and what the expected result is.</li>
+            <li><b>Test Satellite Lights</b> is an example of a test case that is too technical and bloated with technical level keywords. It is not clear what the test case is doing and what the expected result is.</li>
+            <li><b>Test Satellite Temperature Sensor</b> is an example of a test case that strikes a balance. It has a clear business-level description and it is not too technical. It is clear what the test case is doing and what the expected result is. It also benefits from the correct usage of test case settings.</li>
+        </ul></p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code>
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test Satellite GPS Function</span>
+    <span class="kw-call">Run GPS Test With Coordinates On Satellite</span>    <span class="var">${66.550331132}</span>    <span class="var">${25.886996452}</span>    <span class="var">voyager</span>
+
+<span class="tc-name">Test Satellite Lights</span>
+    <span class="kw-call">Connect To Satellite</span>    <span class="str">voyager</span>
+    <span class="var">${light_1_status}</span>=    <span class="kw-call">Get Light Status</span>    <span class="str">light_1</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${light_1_status}</span>    <span class="str">off</span>
+    <span class="kw-call">Turn On Light</span>    <span class="str">light_1</span>
+    <span class="var">${light_1_status}</span>=    <span class="kw-call">Get Light Status</span>    <span class="str">light_1</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${light_1_status}</span>    <span class="str">on</span>
+    <span class="var">${light_2_status}</span>=    <span class="kw-call">Get Light Status</span>    <span class="str">light_2</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${light_2_status}</span>    <span class="str">off</span>
+    <span class="kw-call">Turn On Light</span>    <span class="str">light_2</span>
+    <span class="var">${light_2_status}</span>=    <span class="kw-call">Get Light Status</span>    <span class="str">light_2</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${light_2_status}</span>    <span class="str">on</span>
+    <span class="kw-call">Disconnect From Satellite</span>
+
+<span class="tc-name">Test Satellite Temperature Sensor</span>
+    <span class="kw-stg">[Documentation]</span>    A temperature sensor test, should be run at room temperature
+    <span class="kw-stg">[Setup]</span>    <span class="kw-call">Connect To Satellite</span>    <span class="str">voyager</span>
+    <span class="var">${temperature}</span>=    <span class="kw-call">Get Temperature From Sensor</span>    <span class="str">temperature_sensor_1</span>
+    <span class="kw-call">Should Be Less Than</span>    <span class="var">${temperature}</span>    <span class="str">25</span>
+    <span class="kw-call">Should Be Greater Than</span>    <span class="var">${temperature}</span>    <span class="str">15</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From Satellite</span>
+
+    
+    
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

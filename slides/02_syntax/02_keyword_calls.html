@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Keyword Calls</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - Keyword Calls</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Keyword calls are highlighted in the example test case file on the right. They are the main building blocks of test cases. They are used to execute code that can be defined either in Robot Framework itself or in libraries with Python. Typically they are written in Title Case and imperative form: <code>Connect To Device</code>. 
+        <br><br>Broadly speaking, keywords are either <b>user keywords</b> or <b>library keywords</b>. From Robot Framework's point of view, user keywords are <b>composite keywords</b> meaning that they are comprised of other keyword calls, while <b>library keywords</b> are atomic and do not split into smaller entities from the Robot Framework point of view. However, when looking at their pythonic definitions, they can call other functions and further adaptation layers as they please, and in that sense the atomic nature clearly only applies Robot Framework-wise.
+        <br><br>When a keyword is being parsed as Robot Framework is executing, keyword definitions are searched from the various places where the keyword can be defined - the file itself, custom libraries, imported libraries or separate resource files. If it is not found anywhere, it raises an error.
+        <br><br>Keywords may take arguments and return values. They are similar to functions in proper programming languages.
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${SERIAL_PORT}</span>    <span class="num">1234</span>
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test LED Timer</span>
+    <span class="kw-stg">[Setup]</span>   <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+    <span class="kw-call">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">ON</span>
+    <span class="kw-call">Sleep</span>    <span class="str">5s</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">OFF</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Disconnect From All Devices</span>
+    <span class="var">${devices}</span>=    <span class="kw-call">Get All Connected Devices</span>
+    <span class="ctrl-structure">FOR</span>    <span class="var">${device}</span>    <span class="ctrl-structure">IN</span>    <span class="var">@{devices}</span>
+        <span class="kw-call">Disconnect From Device</span>    <span class="var">${device}</span>
+    <span class="ctrl-structure">END</span>
+</code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - General Syntax</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - General syntax</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Similar to python and unlike to other programming languages, Robot Framework has syntactically significant line changes, indentation, and spaces.<br><br> <br><br>One <b>logical line</b> in Robot Framework can be made up of multiple actual lines by using the line continuation character <code>...</code>. This is often used to make long keyword calls more readable, or to split a long list of arguments into multiple lines. A logical line ends with an end-of-line token, which is typically a newline character, unless the next line starts with the line continuation token <code>...</code>.
+        <br><br>Indentation is used to determine which lines are part of a test case or keyword, and which lines start the definition of a new test case or keyword. The first line of the test case name is not indented and determines its name. All subsequent lines that are indented are considered part of that test case until another non-indented line is encountered, or a new section is called. The same applies to keyword definitions.
+        <br><br>Any two entities (variables, keywords, control structures) are separated with a <b>separator token</b>. Valid separation tokens include at least TWO (2) consecutive spaces or a pipe (|). <b>The convention generally used is FOUR (4) spaces.</b> The same separation is also used for indentation.
+        <br><br>Most special characters hold no significance in syntax. Single spaces are allowed in variable, keyword and test case names. However, when giving string arguments that are processed by a custom python keyword, care must be taken to ensure that the variables are read correctly. Backslashes <code>\</code> can be used to escape special characters.
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${SERIAL_PORT}</span>    <span class="num">1234</span>
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test LED Timer</span>
+    <span class="kw-stg">[Setup]</span>   <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+    <span class="kw-call">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">ON</span>
+    <span class="kw-call">Sleep</span>    <span class="str">5s</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">OFF</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
+</code></pre>
+<br><br>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+<span class="py-ctrl">import</span> <span class="py-lib">serial</span>
+
+<span class="py-deco">@library</span>
+<span class="py-kw">class</span> <span class="py-obj">CustomLibrary</span>:
+    <span class="py-kw">def</span> <span class="py-func">__init__</span>(<span class="py-var">self</span>):
+        <span class="py-var">self.connection</span> = <span class="py-const">None</span>
+
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">connect_to_device</span>(<span class="py-var">self</span>, <span class="py-var">serial_port</span>, <span class="py-var">baudrate</span>=<span class="py-const">9600</span>, <span class="py-var">timeout</span>=<span class="py-const">2</span>):
+        <span class="py-var">self.connection</span> = <span class="py-lib">serial</span>.<span class="py-obj">Serial</span>(
+            <span class="py-var">port</span>=<span class="py-var">serial_port</span>,
+            <span class="py-var">baudrate</span>=<span class="py-var">baudrate</span>,
+            <span class="py-var">timeout</span>=<span class="py-var">timeout</span>
+        )
+
+</code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

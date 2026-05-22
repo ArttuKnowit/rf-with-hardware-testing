@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Architecture</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - Architecture</h1>
+    <div class="side-by-side">
+        <div>
+            <h4>Key Features</h4>
+            <br>
+        <p>
+            Robot Framework excels in
+        </p>
+            <ul>
+                <li>Organising test suites</li>
+                <li>Modularity and extensibility</li>
+                <li>Open-source ecosystem</li>
+                <li>Reporting and logging</li>
+            </ul>
+            <p>
+            but it does not in itself structure the test suites, design keywords, or organise files. Architecture is largely customisable and many different solutions can be used to achieve a good test suite architecture.
+        </p> 
+            <h4>Atomic and composite elements</h4>
+            <br>
+            <p>In Robot Framework, the elements that form the language are categorised in the following hierarchy:</p>
+            <ol>
+                <li>Test Suites
+                    <ul>
+                        <li>Which may have subsuites to several levels</li>
+                        <li>Test suites are <b>composite</b> elements because they form of other test suites and test cases</li>
+                    </ul>
+                </li>
+                <li>Test Cases</li>
+                    <ul>
+                        <li>Test cases are <b>composite</b> elements because they are formed of multiple keywords</li>
+                    </ul>
+                </li>
+                <li>Keywords
+                    <ul>
+                        <li>Which may call other keywords to several levels</li>
+                        <li>Keywords may be <b>composite</b> or <b>atomic</b> elements, depending on if they call other keywords or not</li>
+                    </ul>
+                </li>
+                <li>Robot Framework language statements
+                    <ul>
+                        <li>Which are <b>atomic</b> elements because they cannot be further decomposed</li>
+                    </ul>
+                </li>
+            </ol>
+            <p>This is reflected in the way test suites, test cases, and keywords are organised and executed within the framework. A test suite encompasses both the <b>directories</b> that contain .robot files, as well as the <b>files</b> themselves.</p>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

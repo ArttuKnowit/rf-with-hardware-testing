@@ -2,7 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Robot Framework - File Architecture</title>
-    <link rel="stylesheet" href="slides.css"> 
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
 </head>
 <body>
     <h1>Robot Framework - File Architecture</h1>
@@ -17,20 +19,20 @@
         <div class="example-code">
             <pre><code>arduino-device-test/
 ├── resources/
-│   ├── device_connection.resource
-│   ├── temperature_sensor.resource
-│   └── led_control.resource
+│   ├── <span class="import">device_connection.resource</span>
+│   ├── <span class="import">temperature_sensor.resource</span>
+│   └── <span class="import">led_control.resource</span>
 ├── libraries/
-│   ├── SerialLibrary.py
-│   └── BreadboardUtils.py
+│   ├── <span class="import">SerialLibrary.py</span>
+│   └── <span class="import">BreadboardUtils.py</span>
 ├── data/
-│   ├── constants.py
-│   └── LED_DDT_Testdata.csv
+│   ├── <span class="import">constants.py</span>
+│   └── <span class="str">LED_DDT_Testdata.csv</span>
 └── tests/
-    ├── temperature_sensor_tests.robot
+    ├── <span class="tc-name">temperature_sensor_tests.robot</span>
     └── LED_tests/
-        ├── LED_control_tests.robot
-        └── LED_data_driven_tests.robot
+        ├── <span class="tc-name">LED_control_tests.robot</span>
+        └── <span class="tc-name">LED_data_driven_tests.robot</span>
             </code></pre>
         </div>
     </div>

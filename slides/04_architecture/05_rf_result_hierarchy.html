@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Result Hierarchy</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - Result Hierarchy</h1>
+    <div class="side-by-side">
+       <div><p>
+        In Robot Framework, each composite or atomic element gets a status during running of the suite. The rule of thumb is that failures trickle upwards. Failing a single keyword in a single test in a single suite will fail the whole suite, and the FAIL status trickles upwards. However, other sub suites and test cases and keywords can still have the PASS status.<br><br>
+        Other possible statuses for elements after a run are SKIP and NOT RUN. SKIP indicates intentionally skipping suites or test cases dynamically, and NOT RUN indicates a keyword never reached execution due to control structures or an earlier failure.
+       </p>
+    </div>
+    <div>
+        <img src="../_static/robot_framework_result_hierarchy.png" alt="Result Hierarchy" style="width: 100%; max-width: 400px;">
+    </div>
+    </div>
+</body>
+<style></style>
+</html>

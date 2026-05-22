@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot File Structure</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot File Structure</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Suite files have a specific structure with different sections. The possible sections in a suite file are:
+            <ul>
+                <li>Settings
+                    <ul>
+                        <li>Used to import libraries, resource files and variables, to set suite level setup and teardown tasks, and to define other settings related to the test suite.</li>
+                    </ul>
+                </li>
+                <li>Variables
+                    <ul>
+                        <li>Used to define static variables on suite level scope.</li>
+                    </ul>
+                </li>
+                <li>Test Cases
+                    <ul>
+                        <li>Used to define test cases, which are the main building blocks of test suites.</li>
+                    </ul>
+                </li>
+                <li>Keywords
+                    <ul>
+                        <li>Used to define user keywords, which are reusable building blocks that can be called from test cases or other keywords.</li>
+                    </ul>
+                </li>
+                <li>Comments
+                    <ul>
+                        <li>Used to write comments that are ignored by Robot Framework and are only for documentation purposes.</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${SERIAL_PORT}</span>    <span class="num">1234</span>
+<span class="var">${LED_PIN_1}</span>    <span class="num">3</span>
+<span class="var">${LED_PIN_2}</span>    <span class="num">5</span>
+<span class="var">${LED_PIN_3}</span>    <span class="num">7</span>
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test Turn On Three LEDs</span>
+    <span class="kw-stg">[Setup]</span>    <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+    <span class="var">${status_1}</span>=    <span class="kw-call">Get LED Status</span>    <span class="var">${LED_PIN_1}</span>
+    <span class="var">${status_2}</span>=    <span class="kw-call">Get LED Status</span>    <span class="var">${LED_PIN_2}</span>
+    <span class="var">${status_3}</span>=    <span class="kw-call">Get LED Status</span>    <span class="var">${LED_PIN_3}</span>
+    <span class="ctrl-structure">IF</span>    not <span class="var">${status_1}</span>    <span class="kw-call">Turn On LED</span>    <span class="var">${LED_PIN_1}</span>
+    <span class="ctrl-structure">IF</span>    not <span class="var">${status_2}</span>    <span class="kw-call">Turn On LED</span>    <span class="var">${LED_PIN_2}</span>
+    <span class="ctrl-structure">IF</span>    not <span class="var">${status_3}</span>    <span class="kw-call">Turn On LED</span>    <span class="var">${LED_PIN_3}</span>
+    <span class="kw-call">All Pins Should Read HI</span>    <span class="var">${LED_PIN_1}</span>    <span class="var">${LED_PIN_2}</span>    <span class="var">${LED_PIN_3}</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Get LED Status</span>
+    <span class="kw-stg">[Arguments]</span>    <span class="var">${led_pin}</span>
+    <span class="var">${voltage}</span>=    <span class="kw-call">Get Pin Voltage</span>    <span class="var">${led_pin}</span>
+    <span class="var">${status}</span>=    <span class="kw-call">Set Variable If</span>    '<span class="var">${voltage}</span>' == '<span class="str">HI</span>'    <span class="var">${True}</span>    <span class="var">${False}</span>
+    <span class="kw-stg">[Return]</span>    <span class="var">${status}</span>
+
+
+
+            </code></pre>
+        </div>
+    </div>
+</code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

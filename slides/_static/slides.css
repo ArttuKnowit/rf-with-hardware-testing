@@ -27,14 +27,14 @@
 
   /* Typography */
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-code: 'Courier New', Courier, monospace;
+  --font-code: 'Consolas', 'Courier New', Courier, monospace;
 
   /* Slide dimensions */
   --slide-w: 1200px;
   --slide-h: 675px;   /* 16:9 */
 
   /* Spacing */
-  --gap: 2rem;
+  --gap: 5vw;
   --gap-sm: 1rem;
 }
 
@@ -317,15 +317,31 @@ pre code {
 /* Syntax hint classes (manual, no JS highlighter dependency) */
 /* These classes only apply within code elements */
 
-code .kw       { color: #FFEB3B; }        /* keyword - yellow */
-code .var      { color: #87CEEB; }       /* variable - light blue */
-code .kw-stg   { color: #DA70D6; }       /* keyword storage - purple */
-code .section-header   { color: #db03d4; }
-code .suite-stg { color: #0000CD; }      /* suite storage - dark blue */
-code .str      { color: #FF6B6B; }       /* string - red */
-code .cmt      { color: #8E8278; font-style: italic; }   /* comment */
-code .num      { color: #FFD8A8; }       /* number */
-code .fn       { color: #D4A5F5; }       /* function / keyword call */
+code .kw-name        { color: #DCDCAA; 
+  font-weight: bold; }   /* keyword definition */
+code .kw-call        { color: #DCDCAA; }   /* keyword call */
+code .tc-name        { color: #DCDCAA; 
+  font-weight: bold; }   /* test case name */
+code .var            { color: #9CDCFE; }   /* variable name */
+code .sigil          { color: #D7BA7D; }   /* $, @, & sigil characters */
+code .enclose        { color: #569CD6; }   /* { } [ ] delimiters*/
+code .kw-stg         { color: #C586C0; }   /* keyword setting */
+code .import         { color: #4EC9B0; }   /* import/library */
+code .section-header { color: #C586C0; }   /* *** sections *** */
+code .suite-stg      { color: #569CD6; }   /* suite setting */
+code .str            { color: #CE9178; }   /* string */
+code .cmt            { color: #6A9955; font-style: italic; }  /* comment */
+code .num            { color: #B5CEA8; }   /* number */
+code .ctrl-structure  { color: #C586C0; font-weight: bold; }   /* control structures */
+code .py-ctrl         { color: #C586C0;}   /* Python control keywords */
+code .py-kw           { color: #569CD6;}   /* Python keywords */
+code .py-func         { color: #DCDCAA;}   /* Python function names */
+code .py-lib          { color: #4EC9B0;}   /* Python library names */
+code .py-obj          { color: #4EC9B0;}   /* Python object names */
+code .py-deco         { color: #DCDCAA;}   /* Python decorators */
+code .py-const        { color: #B5CEA8;}   /* Python constants */
+code .py-var          { color: #9CDCFE;}   /* Python variables */
+
 
 /* =====================================================================
    CALLOUT BOXES
@@ -464,6 +480,82 @@ code .fn       { color: #D4A5F5; }       /* function / keyword call */
 .badge.indigo { background: var(--accent-alt);  color: var(--text-inverse); border-color: var(--accent-alt); }
 .badge.warm   { background: var(--accent-warm); color: var(--text-inverse); border-color: var(--accent-warm); }
 .badge.green  { background: var(--accent-green);color: var(--text-inverse); border-color: var(--accent-green); }
+
+/* =====================================================================
+   IMAGE SLIDE
+   ===================================================================== */
+
+.image-slide img {
+  width: 95%;
+  height: auto;
+  aspect-ratio: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* =====================================================================
+   EXERCISE SLIDE
+   ===================================================================== */
+
+/* Use <section class="slide exercise"> for exercise slides */
+.slide.exercise {
+  background: linear-gradient(135deg, #FAF8F5 70%, #F0EEFC 100%);
+  border-color: #C4BCE8;
+}
+
+/* Override the accent bar to indigo */
+.slide.exercise::before {
+  background: linear-gradient(90deg, var(--accent-alt) 0%, #8B7FE0 100%);
+}
+
+.slide.exercise h2 {
+  color: var(--accent-alt);
+}
+
+/* =====================================================================
+   SPOILER
+   ===================================================================== */
+
+/* Use <details class="spoiler"> with a <summary> as the clickable label */
+details.spoiler {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent-alt);
+  border-radius: 0 8px 8px 0;
+  background: #F0EEFC;
+  overflow: hidden;
+}
+
+details.spoiler summary {
+  cursor: pointer;
+  padding: 0.7rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-alt);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+details.spoiler summary::-webkit-details-marker { display: none; }
+
+details.spoiler summary::before {
+  content: '▶';
+  font-size: 0.7em;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+details.spoiler[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details.spoiler > *:not(summary) {
+  padding: 0.7rem 1.1rem 0.9rem;
+  border-top: 1px solid #C4BCE8;
+}
 
 /* =====================================================================
    PRINT / FULLSCREEN OVERRIDES
