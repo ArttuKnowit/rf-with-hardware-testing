@@ -42,7 +42,7 @@
         </p> 
 
         </div>
-        <div class="example-code">
+        <div >
             <pre><code><span class="section-header">*** Settings ***</span>
 <span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
 
@@ -69,7 +69,7 @@
     <span class="kw-stg">[Arguments]</span>    <span class="var">${led_pin}</span>
     <span class="var">${voltage}</span>=    <span class="kw-call">Get Pin Voltage</span>    <span class="var">${led_pin}</span>
     <span class="var">${status}</span>=    <span class="kw-call">Set Variable If</span>    '<span class="var">${voltage}</span>' == '<span class="str">HI</span>'    <span class="var">${True}</span>    <span class="var">${False}</span>
-    <span class="kw-stg">[Return]</span>    <span class="var">${status}</span>
+    <span class="kw-stg">RETURN</span>    <span class="var">${status}</span>
 
 
 

@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Settings</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Robot Framework - Settings</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+            Robot Framework settings happen on each level of hierarchy: Suite, Test Case and Keyword. Settings are used to define the resources, libraries, variables, tags, and other configurations that are needed for the execution of the test cases and keywords.<br><br>
+            Suite settings are defined in a specific section of the .robot file, which is denoted by the header <code>*** Settings ***</code>. Test Case and Keyword level settings are defined within the bodies of each, enclosing each setting in brackets as seen on the example. Some settings are unique to their level.<br><br>
+            Each setting has its own syntax and usage, and they can be used to control various aspects of the test execution, such as setup and teardown, test case tags, library imports, variable definitions, and more.<br><br>            
+        </p> 
+
+        </div>
+        <div>
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+<span class="suite-stg">Resource</span>    <span class="import">arduino_led_control.resource</span>
+<span class="suite-stg">Variables</span>    <span class="import">variables.py</span>
+<span class="suite-stg">Suite Setup</span>    <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+<span class="suite-stg">Suite Teardown</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test LED Timer</span>
+    <span class="kw-stg">[Documentation]</span>    Led Timer Test
+    ...
+    ...    Connects to device, turns LED on and off, and in between checks for correct statuses.
+    <span class="kw-stg">[Setup]</span>   <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+    <span class="kw-call">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">ON</span>
+    <span class="kw-call">Sleep</span>    <span class="str">5s</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">OFF</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Get LED Status</span>
+    <span class="kw-stg">[Documentation]</span>    Return the status of an LED with a given pin number.
+    ...
+    ...    Takes the pin number as an argument and returns 
+    ...    True if the voltage is high and False if it is low.
+    <span class="kw-stg">[Arguments]</span>    <span class="var">${led_pin}</span>
+    <span class="var">${voltage}</span>=    <span class="kw-call">Get Pin Voltage</span>    <span class="var">${led_pin}</span>
+    <span class="var">${status}</span>=    <span class="kw-call">Set Variable If</span>    '<span class="var">${voltage}</span>' == '<span class="str">HI</span>'    <span class="var">${True}</span>    <span class="var">${False}</span>
+    <span class="kw-stg">RETURN</span>    <span class="var">${status}</span>
+
+</code></pre>
+<br><br>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

@@ -10,3 +10,8 @@ log.html
 report.html
 output.xml
 .env
+
+# uv
+.uv/
+uv.lock
+.python-version

@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 02 - System Under Test</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 02 - System Under Test</h1>
+        <div>
+            <p>
+                <ol>
+                    <li>Use your Arduino kit and the Arduino projects book to assemble the circuit found in project 02 (page 34). You may also use all the time you need to get familiar with the Arduino.</li>
+                    <li>Connect the Arduino to your computer with a USB cable. The board itself should have a light turn on indicating it's powered, but the three LED's should remain off.</li>
+                    <li>Ensure you have the arduino-cli installed and configured using `arduino-cli version`. Ask the instructor if you do not yet have it installed on your device.</li>
+                    <li>Compile the firmware using the command <code>arduino-cli compile --fqbn arduino:avr:uno firmware/project_02</code></li>
+                    <li>Identify the port to which the Arduino is connected. You can use the command <code>arduino-cli board list</code> to find the correct port.</li>
+                    <li>Flash the firmware to the Arduino using the command <code>arduino-cli upload -p [PORT] --fqbn arduino:avr:uno firmware/project_02</code>, replacing [PORT] with the correct port.</li>
+                    <li>Verify that the firmware is running correctly by observing the LED behavior on the Arduino as you press the button. At this point the Red LED's should light up briefly as you press the button, until the green light turns on again.</li>
+                    <li>Try flashing the firmware using the project_02_custom directory instead. Press the button to observe the difference.</li>
+                </ol>
+            </p> 
+        </div>
+
+    <div class="post-exercise-questions">
+        <h2>Conversation starters</h2>
+        <ul>
+            <li>What adaptation layer is used to control the soon-to-be system under test?</li>
+            <li>Looking at the code you find in project_02 and project_02_custom directories, what differences can you observe through a quick glance?</li>
+        </ul>
+    </div>
+</body>
+<style></style>
+</html>

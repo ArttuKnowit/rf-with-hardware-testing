@@ -1,29 +1,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Robot Framework - Architecture</title>
+    <title>Robot Framework - Elements Hierarchy</title>
     <link rel="stylesheet" href="../_static/slides.css"> 
     <script src="../_static/slides-data.js"></script>
     <script src="../_static/utils.js" defer></script>
 </head>
 <body>
-    <h1>Robot Framework - Architecture</h1>
+    <h1>Robot Framework - Elements Hierarchy</h1>
     <div class="side-by-side">
         <div>
-            <h4>Key Features</h4>
-            <br>
-        <p>
-            Robot Framework excels in
-        </p>
-            <ul>
-                <li>Organising test suites</li>
-                <li>Modularity and extensibility</li>
-                <li>Open-source ecosystem</li>
-                <li>Reporting and logging</li>
-            </ul>
-            <p>
-            but it does not in itself structure the test suites, design keywords, or organise files. Architecture is largely customisable and many different solutions can be used to achieve a good test suite architecture.
-        </p> 
             <h4>Atomic and composite elements</h4>
             <br>
             <p>In Robot Framework, the elements that form the language are categorised in the following hierarchy:</p>
@@ -51,7 +37,7 @@
                     </ul>
                 </li>
             </ol>
-            <p>This is reflected in the way test suites, test cases, and keywords are organised and executed within the framework. A test suite encompasses both the <b>directories</b> that contain .robot files, as well as the <b>files</b> themselves.</p>
+            <p>This is reflected in the way test suites, test cases, and keywords are organised and executed within the framework. A test suite can be either the <b>directory</b> that contains .robot files, or a <b>.robot file</b> itself.</p>
         </div>
     </div>
 </body>

@@ -15,24 +15,33 @@
                     <li>Create a new file called <code>hello_world.robot</code> under <code>suites/examples/</code></li>
                     <li>Create a section for variables and define a variable called <code>${NAME}</code> with a value of your preference</li>
                     <li>Create a section for test cases</li>
-                    <li>Create a new test case called <code>Greeting test</code></li>
+                    <li>Create a new test case called <code>Greeting Test</code></li>
                     <li>Within the test case body, call the keyword <code>Log To Console</code> with the argument <code>Hello, ${NAME}</code></li>
+                    <li>Run the test case using the command <code>robot -d results suites/examples/hello_world.robot</code></li>
                 </ol>
             </p> 
         </div>
-        <div class="example-code">
+        <div >
             <details class="spoiler">
+            <summary>Solution</summary>
             <pre><code>
 <span class="section-header">*** Variables ***</span>
 <span class="var">${NAME}</span>    Your Name
 
 <span class="section-header">*** Test Cases ***</span>
 <span class="tc-name">Greeting Test</span>
-    <span class="kw-call">Log To Console</span>    <span class="var">Hello, ${NAME}</span>
-    
+    <span class="kw-call">Log To Console</span>    <span class="str">Hello, </span><span class="var">${NAME}</span>
+</code></pre>
 </details>
-            </code></pre>
         </div>
+    </div>
+    <div class="post-exercise-questions">
+        <h2>Conversation starters</h2>
+        <ul>
+            <li>What different results files were generated? What do they contain?</li>
+            <li>Assuming instructions were given using correct convention, what conventions can you find?</li>
+            <li>Since this is a very bare-bones example, which two GTAA layers are we missing?</li>
+        </ul>
     </div>
 </body>
 <style></style>

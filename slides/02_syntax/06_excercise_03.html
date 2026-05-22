@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 03 - Testing the Arduino board</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 03 - Testing the Arduino board</h1>
+    <div class="side-by-side">
+        <div>
+            <p>
+                <ol>
+                    <li>Using the instructions in the previous exercise, flash the Arduino with the firmware from project_02_custom directory.</li>
+                    <li>Run tests using either <code>suites/project_02/part1.robot</code> or <code>suites/project_02/part2.robot</code> as target with the robot command <code>uv run robot -d results [target]</code>. The tests should fail because the ${PORT} variable is not set correctly.</li>
+                    <li>Set the <code>${PORT}</code> variable to the correct port for your Arduino using either a command-line variable or the <code>*** Variables ***</code> section in the test suite and re-run the test suite.</li>
+                    <li>Try running the suites separately, or together using the directory <code>suites/project_02/</code> as the argument for the robot run command. The suite should now pass all tests for part 1 and 3/4 tests for part 2.</li>
+                    <li>Explore the logs to see why the one test fails. Is it the fault of the SUT or the tests?</li>
+
+                </ol>
+            </p> 
+        </div>
+        <div >
+            <details class="spoiler">
+            <summary>Code snippets</summary>
+            <pre><code>
+<span class="section-header">*** Variables ***</span>
+<span class="var">${POST}</span>    COM4            # Likely for Windows
+<span class="var">${POST}</span>    /dev/ttyACM0    # For Linux/MacOS
+
+...
+
+robot -d results -v PORT:COM4 suites/project_02/    # For Windows
+robot -d results -v PORT:/dev/ttyACM0 suites/project_02/    # For Linux/MacOS
+</code></pre>
+</details>
+        </div>
+    </div>
+    <div class="post-exercise-questions">
+        <h2>Further questions</h2>
+        <ul>
+            <li>Which python method is used to log messages to the Robot Framework log file?</li>
+            <li>What does "failures trickle upwards" mean in the context of Robot Framework? Check the log file for which keywords, tests and suites failed.</li>
+            <li>What happens if you remove either the @library decorator or the @keyword decorators and then run the tests? What happens if you remove both?</li>
+        </ul>
+    </div>
+</body>
+<style></style>
+</html>

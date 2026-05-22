@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Framework - Settings</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Test Case and Keyword Settings</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+            The test case and keyword settings can be defined within the body of test cases and keywords, respectively. They both have the following settings available:
+            <ul>
+                <li><code>[Documentation]</code> for providing a description of the test case or keyword</li>
+                <li><code>[Setup]</code> for specifying actions to be performed before the test case or keyword</li>
+                <li><code>[Teardown]</code> for specifying actions to be performed after the test case or keyword</li>
+                <li><code>[Tags]</code> for assigning tags to the test case or keyword</li>
+                <li><code>[Timeout]</code> for setting a timeout for the test case or keyword</li>
+            </ul></p>
+        <p>
+            In addition, keywords have the <code>[Arguments]</code> setting for defining the arguments that the keyword takes. The <code>[Return]</code> setting used to exist for keywords but is deprecated as it was replaced the <code>RETURN</code> statement.
+        </p> 
+
+        </div>
+        <div>
+            <pre><code><span class="section-header">
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test LED Timer</span>
+    <span class="kw-stg">[Documentation]</span>    Led Timer Test
+    ...
+    ...    Connects to device, turns LED on and off, and in between checks for correct statuses.
+    <span class="kw-stg">[Setup]</span>   <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+    <span class="kw-stg">[Tags]</span>    <span class="tag">critical</span>    <span class="tag">led_control</span>
+    <span class="kw-call">Turn On LED</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">ON</span>
+    <span class="kw-call">Sleep</span>    <span class="str">5s</span>
+    <span class="var">${led_status}</span>=    <span class="kw-call">Get LED Status</span>
+    <span class="kw-call">Should Be Equal</span>    <span class="var">${led_status}</span>    <span class="str">OFF</span>
+    <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Get LED Status</span>
+    <span class="kw-stg">[Documentation]</span>    Return the status of an LED with a given pin number.
+    ...
+    ...    Takes the pin number as an argument and returns 
+    ...    True if the voltage is high and False if it is low.
+    <span class="kw-stg">[Arguments]</span>    <span class="var">${led_pin}</span>
+    <span class="var">${voltage}</span>=    <span class="kw-call">Get Pin Voltage</span>    <span class="var">${led_pin}</span>
+    <span class="var">${status}</span>=    <span class="kw-call">Set Variable If</span>    '<span class="var">${voltage}</span>' == '<span class="str">HI</span>'    <span class="var">${True}</span>    <span class="var">${False}</span>
+    <span class="kw-stg">RETURN</span>    <span class="var">${status}</span>
+
+</code></pre>
+<br><br>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

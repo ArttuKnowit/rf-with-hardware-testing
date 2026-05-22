@@ -2,25 +2,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Control Structures</title>
-    <link rel="stylesheet" href="../_static/slides.css"> 
+    <link rel="stylesheet" href="../_static/slides.css">
+    <script src="../_static/slides-data.js"></script>
     <script src="../_static/utils.js" defer></script>
 </head>
 <body>
     <h1>Control Structures</h1>
     <div class="side-by-side">
         <div>
-        <p>Robot Framework control structures all function very similarly to python control structures. Syntax-wise the largest difference is that control structures are enclosed with an END statement. Robot Framework has 
+        <p>Robot Framework control structures all function very similarly to python control structures. Syntax-wise the largest difference is that control structures are enclosed with an <b>END</b> statement. Robot Framework has 
             <ul>
-                <li>FOR and WHILE loops</li>
-                <li>IF/ELSE/ELSE IF statements</li>
-                <li>TRY/EXCEPT for error handling</li>
+                <li><b>FOR</b> and <b>WHILE</b> loops</li>
+                <li><b>IF</b>/<b>ELSE</b>/<b>ELSE IF</b> statements</li>
+                <li><b>TRY</b>/<b>EXCEPT</b> for error handling</li>
             </ul>
-            Most complex nested control structures are usually embedded within the python code. Control structures in Robot Framework are used in cases where the logic is very clear and descriptive, and integral to the overall flow of the test case.
+        </p>
+        <p>
+            Most complex or nested control structures are usually embedded within the python code. Control structures in Robot Framework are used in cases where the logic is very clear and descriptive, and integral to the overall flow of the test case.
         </p> 
 
         </div>
-        <div class="example-code">
+        <div >
             <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+
 
 <span class="section-header">*** Test Cases ***</span>
 <span class="tc-name">Test LED Toggling</span>

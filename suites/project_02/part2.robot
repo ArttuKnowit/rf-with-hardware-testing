@@ -1,7 +1,7 @@
 *** Settings ***
 Library           ../../libraries/ArduinoLib.py
 
-Suite Setup       Connect To Device    COM4
+Suite Setup       Connect To Device    ${PORT}
 Suite Teardown    Disconnect From Device
 
 Test Setup        Reset Device
@@ -19,22 +19,22 @@ Initial LED Is Zero
     Should Be Equal As Strings    ${led}    ${LED_0}
 
 Button Press Advances To LED 1
-    Write Serial    P
+    Write Serial    PressButton
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_1}
 
 Two Button Presses Advance To LED 2
-    Write Serial    P
+    Write Serial    PressButton
     Sleep    1s
-    Write Serial    P
+    Write Serial    PressButton
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_2}
 
 Three Button Presses Wrap Back To LED 0
-    Write Serial    P
+    Write Serial    PressButton
     Sleep    1s
-    Write Serial    P
+    Write Serial    PressButton
     Sleep    1s
-    Write Serial    P
+    Write Serial    PressButton
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_0}

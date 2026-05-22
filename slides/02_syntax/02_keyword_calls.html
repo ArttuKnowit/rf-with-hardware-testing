@@ -10,14 +10,16 @@
     <h1>Robot Framework - Keyword Calls</h1>
     <div class="side-by-side">
         <div>
-        <p>Keyword calls are highlighted in the example test case file on the right. They are the main building blocks of test cases. They are used to execute code that can be defined either in Robot Framework itself or in libraries with Python. Typically they are written in Title Case and imperative form: <code>Connect To Device</code>. 
+        <p>Keyword calls are highlighted in yellow. They are the main building blocks of test cases. They are used to execute code that can be defined either in Robot Framework itself or in libraries with Python. Typically they are written in Title Case and imperative form: <code>Connect To Device</code>. 
         <br><br>Broadly speaking, keywords are either <b>user keywords</b> or <b>library keywords</b>. From Robot Framework's point of view, user keywords are <b>composite keywords</b> meaning that they are comprised of other keyword calls, while <b>library keywords</b> are atomic and do not split into smaller entities from the Robot Framework point of view. However, when looking at their pythonic definitions, they can call other functions and further adaptation layers as they please, and in that sense the atomic nature clearly only applies Robot Framework-wise.
-        <br><br>When a keyword is being parsed as Robot Framework is executing, keyword definitions are searched from the various places where the keyword can be defined - the file itself, custom libraries, imported libraries or separate resource files. If it is not found anywhere, it raises an error.
-        <br><br>Keywords may take arguments and return values. They are similar to functions in proper programming languages.
+        <br><br>When Robot Framework is parsing the definition layer, keyword definitions are searched from the various places where the keyword can be defined - the file itself, custom libraries, imported libraries or separate resource files. If it is not found anywhere, it raises an error. You may check the definition of "Connect To Device" keyword in the CustomLibrary.py file to see how it is defined and what it does.
+        <br><br>Keywords may take arguments and return values. They are similar to functions in proper programming languages. In some cases they ARE functions.
         </p> 
 
         </div>
-        <div class="example-code">
+        <div >
+<details class="spoiler" open>
+    <summary>test_file.robot</summary>
             <pre><code><span class="section-header">*** Settings ***</span>
 <span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
 
@@ -41,7 +43,31 @@
     <span class="ctrl-structure">FOR</span>    <span class="var">${device}</span>    <span class="ctrl-structure">IN</span>    <span class="var">@{devices}</span>
         <span class="kw-call">Disconnect From Device</span>    <span class="var">${device}</span>
     <span class="ctrl-structure">END</span>
+
 </code></pre>
+</details>
+<br>
+<details class="spoiler">
+    <summary>CustomLibrary.py</summary>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+<span class="py-ctrl">import</span> <span class="py-lib">serial</span>
+
+<span class="py-deco">@library</span>
+<span class="py-kw">class</span> <span class="py-obj">CustomLibrary</span>:
+    <span class="py-kw">def</span> <span class="py-func">__init__</span>(<span class="py-var">self</span>):
+        <span class="py-var">self.connection</span> = <span class="py-const">None</span>
+
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">connect_to_device</span>(<span class="py-var">self</span>, <span class="py-var">serial_port</span>,
+                          <span class="py-var">baudrate</span>=<span class="py-const">9600</span>, <span class="py-var">timeout</span>=<span class="py-const">2</span>):
+        <span class="py-var">self.connection</span> = <span class="py-lib">serial</span>.<span class="py-obj">Serial</span>(
+            <span class="py-var">port</span>=<span class="py-var">serial_port</span>,
+            <span class="py-var">baudrate</span>=<span class="py-var">baudrate</span>,
+            <span class="py-var">timeout</span>=<span class="py-var">timeout</span>
+        )
+
+</code></pre>
+</details>
         </div>
     </div>
 </body>

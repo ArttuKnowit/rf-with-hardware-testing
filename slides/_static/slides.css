@@ -100,6 +100,7 @@ li:last-child {
 
 /* Lays out direct child divs side by side, left to right */
 .side-by-side {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -115,6 +116,11 @@ li:last-child {
   flex: 0 0 65%;
   max-width: 65%;
   min-width: 0;
+}
+
+/* Automatically widen any column that contains a code block */
+.side-by-side > div:has(pre) {
+  flex: 1.5;
 }
 
 /* Stacks images vertically, all sharing the same full width */
@@ -257,10 +263,11 @@ pre {
   font-family: var(--font-code);
   font-size: 0.92rem;
   line-height: 1.65;
-  padding: 0.2rem 0.2rem;
+  padding: 1rem 1.2rem;
   border-radius: 8px;
-  border-left: 4px solid var(--accent);
   overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
 
   /* Render whitespace and newlines exactly as written in the HTML source */
   white-space: pre;
@@ -500,17 +507,50 @@ code .py-var          { color: #9CDCFE;}   /* Python variables */
 
 /* Use <section class="slide exercise"> for exercise slides */
 .slide.exercise {
-  background: linear-gradient(135deg, #FAF8F5 70%, #F0EEFC 100%);
-  border-color: #C4BCE8;
+  background: linear-gradient(135deg, #FAF8F5 70%, #E4F5EF 100%);
+  border-color: #9DCEBE;
 }
 
-/* Override the accent bar to indigo */
+/* Override the accent bar to sea-green */
 .slide.exercise::before {
-  background: linear-gradient(90deg, var(--accent-alt) 0%, #8B7FE0 100%);
+  background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent) 100%);
 }
 
 .slide.exercise h2 {
-  color: var(--accent-alt);
+  color: var(--accent-green);
+}
+
+/* Standalone exercise pages — body.exercise ----------------------- */
+body.exercise {
+  min-height: 100vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg, #E8F5F1 0%, #D8EEE8 60%, #C8E5DD 100%);
+  border-top: 5px solid var(--accent-green);
+}
+
+body.exercise > h1 {
+  width: 100%;
+  max-width: var(--slide-w);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #9DCEBE;
+}
+
+/* Inline code in exercise pages — teal to match the slide theme */
+body.exercise :not(pre) > code {
+  background: #D5ECE7;
+  color: var(--accent-green);
+}
+
+/* Questions / reflection pinned to the bottom of an exercise page */
+.post-exercise-questions {
+  width: 100%;
+  max-width: var(--slide-w);
+  margin-top: auto;
+  padding: 1.25rem 0 0.75rem;
+  border-top: 2px dashed #9DCEBE;
 }
 
 /* =====================================================================
@@ -519,10 +559,13 @@ code .py-var          { color: #9CDCFE;}   /* Python variables */
 
 /* Use <details class="spoiler"> with a <summary> as the clickable label */
 details.spoiler {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0.5rem 0;
   border: 1px solid var(--border);
-  border-left: 4px solid var(--accent-alt);
+  border-left: 4px solid var(--accent);
   border-radius: 0 8px 8px 0;
-  background: #F0EEFC;
+  background: #EAF5FA;
   overflow: hidden;
 }
 
@@ -531,12 +574,30 @@ details.spoiler summary {
   padding: 0.7rem 1.1rem;
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--accent-alt);
+  color: var(--accent);
   list-style: none;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   user-select: none;
+}
+
+/* Exercise context — override spoiler colours to green */
+.slide.exercise details.spoiler,
+body.exercise details.spoiler {
+  border-color: #9DCEBE;
+  border-left-color: var(--accent-green);
+  background: #EBF6F0;
+}
+
+.slide.exercise details.spoiler summary,
+body.exercise details.spoiler summary {
+  color: var(--accent-green);
+}
+
+/* Fallback label when <summary> has no text content */
+details.spoiler > summary:empty::after {
+  content: 'Solution';
 }
 
 details.spoiler summary::-webkit-details-marker { display: none; }
@@ -554,7 +615,12 @@ details.spoiler[open] summary::before {
 
 details.spoiler > *:not(summary) {
   padding: 0.7rem 1.1rem 0.9rem;
-  border-top: 1px solid #C4BCE8;
+  border-top: 1px solid var(--border);
+}
+
+.slide.exercise details.spoiler > *:not(summary),
+body.exercise details.spoiler > *:not(summary) {
+  border-top-color: #9DCEBE;
 }
 
 /* =====================================================================

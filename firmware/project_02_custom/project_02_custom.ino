@@ -37,8 +37,8 @@ void setup() {
 
 void loop() {
     if (Serial.available()) {
-        char cmd = Serial.read();
-        if (cmd == 'P') {
+        String cmd = Serial.readStringUntil('\n');
+        if (cmd == "PressButton") {
             handleButtonPress();
         }
     }

@@ -1,8 +1,11 @@
 *** Settings ***
 Library           ../../libraries/ArduinoLib.py
+Library           ../../libraries/OperatorLib.py
 
 Suite Setup       Connect To Device    ${PORT}
 Suite Teardown    Disconnect From Device
+
+Test Setup        Reset Device
 
 
 *** Variables ***
@@ -17,16 +20,22 @@ Initial LED Is Zero
     Should Be Equal As Strings    ${led}    ${LED_0}
 
 Button Press Advances To LED 1
-    Write Serial    PressButton
+    Confirm User Has Pressed Button
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_1}
 
-Button Press Advances To LED 2
-    Write Serial    PressButton
+Two Button Presses Advance To LED 2
+    Confirm User Has Pressed Button
+    Sleep    1s
+    Confirm User Has Pressed Button
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_2}
 
-Button Press Wraps Back To LED 0
-    Write Serial    PressButton
+Three Button Presses Wrap Back To LED 0
+    Confirm User Has Pressed Button
+    Sleep    1s
+    Confirm User Has Pressed Button
+    Sleep    1s
+    Confirm User Has Pressed Button
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_0}

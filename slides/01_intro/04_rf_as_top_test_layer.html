@@ -18,11 +18,14 @@
         </ul></p> 
 
         </div>
-        <div class="example-code">
+        <div>
             <pre><code>
 <span class="section-header">*** Test Cases ***</span>
 <span class="tc-name">Test Satellite GPS Function</span>
-    <span class="kw-call">Run GPS Test With Coordinates On Satellite</span>    <span class="var">${66.550331132}</span>    <span class="var">${25.886996452}</span>    <span class="var">voyager</span>
+    <span class="kw-call">Run GPS Test With Coordinates On Satellite</span>    
+    ...    <span class="var">${66.550331132}</span>    
+    ...    <span class="var">${25.886996452}</span>    
+    ...    <span class="var">voyager</span>
 
 <span class="tc-name">Test Satellite Lights</span>
     <span class="kw-call">Connect To Satellite</span>    <span class="str">voyager</span>
@@ -39,9 +42,11 @@
     <span class="kw-call">Disconnect From Satellite</span>
 
 <span class="tc-name">Test Satellite Temperature Sensor</span>
-    <span class="kw-stg">[Documentation]</span>    A temperature sensor test, should be run at room temperature
+    <span class="kw-stg">[Documentation]</span>    A temperature sensor test, 
+    ...   should be run at room temperature
     <span class="kw-stg">[Setup]</span>    <span class="kw-call">Connect To Satellite</span>    <span class="str">voyager</span>
-    <span class="var">${temperature}</span>=    <span class="kw-call">Get Temperature From Sensor</span>    <span class="str">temperature_sensor_1</span>
+    <span class="var">${temperature}</span>=    <span class="kw-call">Get Temperature From Sensor</span>
+    ...    <span class="str">temperature_sensor_1</span>
     <span class="kw-call">Should Be Less Than</span>    <span class="var">${temperature}</span>    <span class="str">25</span>
     <span class="kw-call">Should Be Greater Than</span>    <span class="var">${temperature}</span>    <span class="str">15</span>
     <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From Satellite</span>

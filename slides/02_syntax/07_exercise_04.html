@@ -1,0 +1,105 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 04 - User Input And Custom Library</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 04 - User Input And Custom Library</h1>
+    <div class="side-by-side">
+        <div style="min-width: 50%;">
+            <p>
+            Robot Framework has the Dialogue library, that is widely used for getting user input, but it is generally not a good choice for simple systems where extra dependencies are not desired and command-line input is preferred. In this exercise, we will build our own library for getting user input from the command line, and use it to control the flow of our tests.</p>
+            <p>
+                <ol>
+                    <li>Create a new suite file under project_02 called "part3.robot".</li>
+                    <li>Copy the contents of either part1.robot or part2.robot to part3.robot.</li>
+                    <li>Change the test cases in part3.robot to use keyword <code>Confirm User Has Pressed Button</code> instead of <code>Write Serial | PressButton</code></li>
+                    <li>Create a new python file under <code>libraries/</code> called <code>OperatorLib.py</code></li>
+                    <li>Import the keyword and library decorators from <code>robot.api.deco</code></li>
+                    <li>Define a new class called <code>OperatorLib</code> and decorate it with <code>@library</code>   </li>
+                    <li>Define a new method in the class called <code>confirm_user_has_pressed_button</code> that takes no arguments and returns nothing. Decorate the method with <code>@keyword</code>. Use the python's native <code>input()</code> function to get user input.</li>
+                    <li>Import the library to part3.robot and run the test suite. The tests should now wait for user input instead of writing to the serial port.</li>
+                    <li>The dialogue on when the tests are waiting for the button push is lacking. Figure out a way to add logging to the console to inform the user when to press the button.
+                        <ul>
+                            <li>There are several ways to do this, but some are clearly better than others.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </p> 
+        </div>
+        <div >
+            <details class="spoiler">
+            <summary>part3.robot</summary>
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>           <span class="import">../../libraries/ArduinoLib.py</span>
+<span class="suite-stg">Library</span>           <span class="import">../../libraries/OperatorLib.py</span>
+
+<span class="suite-stg">Suite Setup</span>       <span class="kw-call">Connect To Device</span>    <span class="var">${PORT}</span>
+<span class="suite-stg">Suite Teardown</span>    <span class="kw-call">Disconnect From Device</span>
+
+<span class="suite-stg">Test Setup</span>        <span class="kw-call">Reset Device</span>
+
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${LED_0}</span>          <span class="num">0</span>
+<span class="var">${LED_1}</span>          <span class="num">1</span>
+<span class="var">${LED_2}</span>          <span class="num">2</span>
+
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Initial LED Is Zero</span>
+    <span class="var">${led}</span>=    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Should Be Equal As Strings</span>    <span class="var">${led}</span>    <span class="var">${LED_0}</span>
+
+<span class="tc-name">Button Press Advances To LED 1</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="var">${led}</span>=    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Should Be Equal As Strings</span>    <span class="var">${led}</span>    <span class="var">${LED_1}</span>
+
+<span class="tc-name">Two Button Presses Advance To LED 2</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="kw-call">Sleep</span>    <span class="str">1s</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="var">${led}</span>=    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Should Be Equal As Strings</span>    <span class="var">${led}</span>    <span class="var">${LED_2}</span>
+
+<span class="tc-name">Three Button Presses Wrap Back To LED 0</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="kw-call">Sleep</span>    <span class="str">1s</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="kw-call">Sleep</span>    <span class="str">1s</span>
+    <span class="kw-call">Confirm User Has Pressed Button</span>
+    <span class="var">${led}</span>=    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Should Be Equal As Strings</span>    <span class="var">${led}</span>    <span class="var">${LED_0}</span>
+</code></pre>
+</details>
+<br>
+<details class="spoiler">
+    <summary>OperatorLib.py</summary>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+
+<span class="py-deco">@library</span>
+<span class="py-kw">class</span> <span class="py-obj">OperatorLib</span>:
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">confirm_user_has_pressed_button</span>(<span class="py-var">self</span>):
+        <span class="py-lib">logger</span>.<span class="py-func">info</span>(<span class="str">"Press the button on the Arduino and then press Enter."</span>, <span class="py-var">console</span>=<span class="py-const">True</span>)
+        <span class="py-func">input</span>(<span class="str">"Press Enter after pressing the button on the Arduino."</span>)
+
+</code></pre>
+</details>
+        </div>
+    </div>
+    <div class="post-exercise-questions">
+        <h2>Further questions</h2>
+        <ul>
+            <li>What keywords could be useful for adding to the OperatorLib?</li>
+            <li>How would you implement a keyword that takes a value from the user and stores it as a dynamic variable? </li>
+            <li>What makes the tests in all currently existing three .robot files flaky?</li>
+        </ul>
+    </div>
+</body>
+<style></style>
+</html>

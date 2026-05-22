@@ -26,8 +26,11 @@
             The target, which may be either a file or a directory, will be the root suite of the robot run. If the target is a directory, all .robot files in the directory and its subdirectories will be included in the test run unless other command line flags are used to skip or exclude them. The test execution order will follow the hierarchy of the test suites as defined by the directory structure and the suite files.
             </p>
         </div>
-        <div class="example-code">
-            <pre style="white-space: pre-wrap;"><code>~project-root-folder$ robot --include critical --variable SERIAL_PORT:1234 --outputdir results tests/
+        <div >
+            <pre style="white-space: pre-wrap;"><code>
+~project-root-folder$ robot --include critical --variable SERIAL_PORT:1234 --outputdir results tests/
+
+~project-root-folder$ robot -i critical -v SERIAL_PORT:1234 -d results tests/
             </code></pre>
         </div>
     </div>
