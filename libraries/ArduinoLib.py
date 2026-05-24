@@ -43,3 +43,10 @@ class ArduinoLib:
         self.connection.reset_input_buffer()
         time.sleep(2)
         logger.info("Device reset")
+
+    @keyword
+    def read_analog_voltage(self, pin_index):
+        self.write_serial(f"ReadAnalog {pin_index}")
+        response = self.read_serial()
+        voltage = float(response)
+        return voltage

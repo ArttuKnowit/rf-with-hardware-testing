@@ -1,0 +1,119 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 05 - Better Tests</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 05 - Better Tests</h1>
+    <div class="side-by-side">
+        <div style="min-width: 50%;">
+            <p>
+            So far our LED tests on project 02 have been relying on the device itself keeping track of which LED is lit up and reading that information through serial. A more rigid way of confirming that the LED is emitting light, is to measure the voltage across the LED.</p>
+            <p>
+                <ol>
+                    <li>Flash the Arduino with the new firmware found in <code>firmware/project_02_wired_tests</code> by compiling it first and then uploading it to the device.</li>
+                    <li>Attach three wires in the following way:
+                        <ol>
+                            <li>One wire that connects from A2 analogue pin to the bread board, in a position between the cathode of the green LED and the resistor.</li>
+                            <li>One wire that connects from A1 analogue pin to the bread board, in a position between the cathode of the red LED and the resistor.</li>
+                            <li>One wire that connects from A0 analogue pin to the bread board, in a position between the cathode of the blue LED and the resistor.</li>
+                        </ol>
+                    </li>
+                    <li>Add a new keyword to the ArduinoLib.py that measures the voltage from a specific analogue pin. If you are unsure on how to do this, check the code block "read_voltage" on the right.</li>
+                    <li>Create a new suite file called "part4.robot" and use the previous files as a template.
+                        <ul>
+                            <li>Change the assertion in the tests to read the voltage from the bread board instead of relying on the device's read state.</li>
+                            <li>You may do this with physical button presses or by relying on the serial command for invoking the button press function.</li>
+                            <li>Explore sufficient values. The Arduino doesn't give out more than 5V so that should be the maximum value to expect. The voltage drop across the LED isn't significant.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </p> 
+        </div>
+        <div >
+            <details class="spoiler">
+            <summary>read_voltage</summary>
+            <pre><code>
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">read_analog_voltage</span>(<span class="py-var">self</span>, <span class="py-var">pin_index</span>):
+        <span class="py-var">self</span>.<span class="py-func">write_serial</span>(<span class="str">f"ReadAnalog {pin_index}"</span>)
+        <span class="py-var">response</span> = <span class="py-var">self</span>.<span class="py-func">read_serial</span>()
+        <span class="py-var">voltage</span> = <span class="py-func">float</span>(<span class="py-var">response</span>)
+        <span class="py-kw">return</span> <span class="py-var">voltage</span>
+</code></pre>
+</details>
+<br>
+<details class="spoiler">
+    <summary>part4.robot</summary>
+<pre><code>
+<span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>           <span class="import">../../libraries/ArduinoLib.py</span>
+
+<span class="suite-stg">Suite Setup</span>       <span class="kw-call">Connect To Device</span>    <span class="var">${PORT}</span>
+<span class="suite-stg">Suite Teardown</span>    <span class="kw-call">Disconnect From Device</span>
+
+<span class="suite-stg">Test Setup</span>        <span class="kw-call">Reset LED configuration</span>
+
+
+<span class="section-header">*** Variables ***</span>
+<span class="var">${VOLTAGE_HIGH_THRESHOLD}</span>    <span class="num">3.0</span>
+<span class="var">${A_PIN_FOR_LED_0}</span>           <span class="num">2</span>
+<span class="var">${A_PIN_FOR_LED_1}</span>           <span class="num">1</span>
+<span class="var">${A_PIN_FOR_LED_2}</span>           <span class="num">0</span>
+
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Initial LED Is Zero</span>
+    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">LED Should Be Active</span>    <span class="var">${A_PIN_FOR_LED_0}</span>
+
+<span class="tc-name">Button Press Advances To LED 1</span>
+    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">LED Should Be Active</span>    <span class="var">${A_PIN_FOR_LED_1}</span>
+
+<span class="tc-name">Two Button Presses Advance To LED 2</span>
+    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">LED Should Be Active</span>    <span class="var">${A_PIN_FOR_LED_2}</span>
+
+<span class="tc-name">Three Button Presses Wrap Back To LED 0</span>
+    <span class="kw-call">Read Serial</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">Press Button</span>
+    <span class="kw-call">LED Should Be Active</span>    <span class="var">${A_PIN_FOR_LED_0}</span>
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">LED Should Be Active</span>
+    <span class="kw-stg">[Arguments]</span>    <span class="var">${pin_index}</span>
+    <span class="var">${voltage}</span>=    <span class="kw-call">Read Analog Voltage</span>    <span class="var">${pin_index}</span>
+    <span class="kw-call">Should Be True</span>    <span class="var">${voltage}</span> >= <span class="var">${VOLTAGE_HIGH_THRESHOLD}</span>
+    ...    <span class="str">LED on A${pin_index} expected to be active but measured ${voltage}V</span>
+
+<span class="kw-name">Press Button</span>
+    <span class="kw-call">Write Serial</span>    <span class="str">PressButton</span>
+    <span class="kw-call">Read Serial</span>
+
+<span class="kw-name">Reset LED configuration</span>
+    <span class="kw-call">Write Serial</span>    <span class="str">setLed 0</span>
+    <span class="kw-call">Read Serial</span>
+</code></pre>
+</details>
+        </div>
+    </div>
+    <div class="post-exercise-questions">
+        <h2>Further questions</h2>
+        <ul>
+            <li>What keywords could be useful for adding to the OperatorLib?</li>
+            <li>How would you implement a keyword that takes a value from the user and stores it as a dynamic variable? </li>
+            <li>What makes the tests in all currently existing three .robot files flaky?</li>
+        </ul>
+    </div>
+</body>
+<style></style>
+</html>

@@ -4,7 +4,7 @@ Library           ../../libraries/ArduinoLib.py
 Suite Setup       Connect To Device    ${PORT}
 Suite Teardown    Disconnect From Device
 
-Test Setup        Reset Device
+Test Setup        Reset LED Configuration
 
 
 *** Variables ***
@@ -34,7 +34,12 @@ Three Button Presses Wrap Back To LED 0
     Write Serial    PressButton
     Sleep    1s
     Write Serial    PressButton
+    ${led}=    Read Serial
     Sleep    1s
     Write Serial    PressButton
-    ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_0}
+
+*** Keywords ***
+Reset LED Configuration
+    Write Serial    SetLed 0
+    Read Serial

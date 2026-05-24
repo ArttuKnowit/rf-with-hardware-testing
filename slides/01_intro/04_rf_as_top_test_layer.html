@@ -1,13 +1,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Robot Framework - Top Test Layer</title>
+    <title>Robot Framework as top test layer</title>
     <link rel="stylesheet" href="../_static/slides.css"> 
     <script src="../_static/slides-data.js"></script>
     <script src="../_static/utils.js" defer></script>
 </head>
 <body>
-    <h1>Robot Framework - Top Test Layer</h1>
+    <h1>Robot Framework as top test layer</h1>
     <div class="side-by-side">
         <div>
         <p>To best utilise Robot Framework as a test framework, each test case should be built with top-level keywords in Robot Framework, and all technical details should be left for the adaption layer. Test cases should consist of keywords that describe in high level what is happening in the test case. These keywords are like functions and should be designed and constructed for re-usability. The reason to use Robot Framework relies in built-in reporting tools and capabilities.<br><br>
@@ -25,7 +25,7 @@
     <span class="kw-call">Run GPS Test With Coordinates On Satellite</span>    
     ...    <span class="var">${66.550331132}</span>    
     ...    <span class="var">${25.886996452}</span>    
-    ...    <span class="var">voyager</span>
+    ...    <span class="str">voyager</span>
 
 <span class="tc-name">Test Satellite Lights</span>
     <span class="kw-call">Connect To Satellite</span>    <span class="str">voyager</span>
@@ -51,9 +51,7 @@
     <span class="kw-call">Should Be Greater Than</span>    <span class="var">${temperature}</span>    <span class="str">15</span>
     <span class="kw-stg">[Teardown]</span>    <span class="kw-call">Disconnect From Satellite</span>
 
-    
-    
-            </code></pre>
+</code></pre>
         </div>
     </div>
 </body>

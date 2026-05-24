@@ -17,6 +17,11 @@ window.SLIDES_DATA = [
     { path: "03_architecture/03_rf_hierarchy_order_vis.html", page: 15 },
     { path: "03_architecture/04_rf_execution.html", page: 16 },
     { path: "03_architecture/05_rf_result_hierarchy.html", page: 17 },
-    { path: "04_improving_the_test_suite/01_settings.html", page: 18 },
-    { path: "04_improving_the_test_suite/02_suite_settings.html", page: 19 }
+    { path: "04_settings/01_settings.html", page: 18 },
+    { path: "04_settings/02_suite_settings.html", page: 19 },
+    { path: "04_settings/03_tc_and_keyword_settings.html", page: 20 },
+    { path: "04_settings/04_init_files.html", page: 21 },
+    { path: "05_variables_and_arguments/01_lists_and_dictionaries.html", page: 22 },
+    { path: "05_variables_and_arguments/02_environment_variables.html", page: 23 },
+    { path: "05_variables_and_arguments/03_argument_types.html", page: 24 }
 ];

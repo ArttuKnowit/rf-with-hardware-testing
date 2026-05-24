@@ -10,7 +10,7 @@
     <h1>Robot Framework - Variables</h1>
     <div class="side-by-side">
         <div>
-        <p>Variables are used just like in any programming language, to store data that can be used later in the test cases. They have a prefix character (usually $) and are enclosed in curly braces {}. <br><br>
+        <p>Scalar variables are used just like in any programming language, to store data that can be used later in the test cases. They have a prefix character (usually $) and are enclosed in curly braces {}. <br><br>
         They can be defined in various places and scopes. Variables specifically defined in the definition layer are considered <b>static variables</b>, and variables defined during run time through keyword calls and returns are considered <b>dynamic variables</b>. Static variables are defined at a higher scope and can be accessed from multiple test cases. Dynamic variables are defined within a specific scope (e.g., test case level) and can only be accessed within that scope. Typically static variables are written in CAPITAL LETTERS and dynamic variables in lower case.<br><br>
         In this example, <code>${SERIAL_PORT}</code> is defined in the Variables section and has suite scope, while <code>${led_status}</code> is defined dynamically in the test case and has test case scope. Variables can also be defined using the <code>-v VARIABLE_NAME:VALUE</code> flag on the command line, in external variable or resource files, or dynamically within custom libraries.
         </p> 

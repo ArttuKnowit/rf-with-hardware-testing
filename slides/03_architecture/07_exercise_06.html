@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 06 - Custom reporting</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body class="exercise">
+    <h1>Exercise 06 - Custom reporting</h1>
+    <div class="side-by-side">
+        <div style="min-width: 50%;">
+            <p>
+            Robot Framework's own reporting is considered by many to be quite bare-bones or lacking. While Robot Framework does handle reporting, the key artifact, output.xml containing all run information, is more machine readable than human readable. The log.html and report.html are older implementations of test reporting and may not meet modern expectations for test reports.<br><br>
+            One useful tool for improving the reporting capabilities of Robot framework is the <a href="https://docs.robotframework.org/docs/reporting_test_results/robot_framework_dashboard">Robot Framework Dashboard</a>. It is still a simple way of reporting results, but already provides more functionality with analysis over several test scenarios and test runs, and a more modern look. It is also quite easy to set up and use.<br><br>
+            <ol>
+                <li>Install the Robot Framework Dashboard using <code>uv add robotframework-dashboard</code></li>
+                <li>Go to part3.robot and in the settings section, assign a tag <code>interactive</code> for the suite using the <code>Test Tags</code> setting in the <code>*** Settings ***</code> section.</li>
+                <li>Run the whole root suite <code>suites/project_02/</code> with the following command: <code>uv run robot -d results -v PORT:YOUR_PORT_NAME --skip interactive --timestampoutputs suites/project_02/</code></li>
+                <li>Take one of the LED's, place it in the wrong way (swap anode and cathode), and run all the tests again with the same command.</li>
+                <li>Disconnect the whole device and run the tests again.</li>
+                <li>Fix everything (connect device, orient all LED's correctly) and run the tests again.</li>
+                <li>There is now much data on several runs. Let's look at the dashboard for how the results are displayed. Run the command <code>uv run robotdashboard robot_dashboard.html -f results</code></li>
+                <li>Open the newly generated <code>robot_dashboard.html</code> in a web browser to view the dashboard.</li>
+            </ol>
+            </p>
+        </div>
+        <div >
+        </div>
+    </div>
+    <div class="post-exercise-questions">
+        <h2>Further questions</h2>
+        <ul>
+            <li>What ways can you think of right away to improve the reporting of test results?</li>
+            <li>What did the tag do?</li>
+        </ul>
+    </div>
+</body>
+<style></style>
+</html>

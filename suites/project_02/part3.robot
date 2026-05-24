@@ -5,7 +5,8 @@ Library           ../../libraries/OperatorLib.py
 Suite Setup       Connect To Device    ${PORT}
 Suite Teardown    Disconnect From Device
 
-Test Setup        Reset Device
+Test Setup        Reset LED Configuration
+Test Tags         interactive
 
 
 *** Variables ***
@@ -39,3 +40,8 @@ Three Button Presses Wrap Back To LED 0
     Confirm User Has Pressed Button
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_0}
+
+*** Keywords ***
+Reset LED configuration
+    Write Serial    SetLed 0
+    Read Serial

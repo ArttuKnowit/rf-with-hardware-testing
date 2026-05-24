@@ -5,6 +5,10 @@ const int LED_PINS[] = {3, 4, 5};
 const int PINS[] = {0, 1, 2, 3, 4, 5};
 const int LED_COUNT = 3;
 
+const int ANALOG_PINS[] = {A0, A1, A2};
+const int ANALOG_PIN_COUNT = 3;
+const float ANALOG_REFERENCE_VOLTAGE = 5.0;
+
 int currentLed = 0;
 int lastButtonState = LOW;
 
@@ -12,6 +16,11 @@ void setLed(int index) {
     for (int i = 0; i < LED_COUNT; i++) {
         digitalWrite(LED_PINS[i], i == index ? HIGH : LOW);
     }
+}
+
+float readAnalogVoltage(int pinIndex) {
+    int raw = analogRead(ANALOG_PINS[pinIndex]);
+    return raw * (ANALOG_REFERENCE_VOLTAGE / 1023.0);
 }
 
 void handleButtonPress() {

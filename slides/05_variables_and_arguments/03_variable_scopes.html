@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Variable scopes</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Variable Scopes</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Variables exist in varying scopes determined by where and how they are created. Global variables are either specifically set global using the VAR syntax and the <code>scope=GLOBAL</code> flag, through the command line, or simply by being specific built-in variables that are always set global, such as <code>${CURDIR}</code>.<br><br>
+        Suite scope variables are typically set from the <code>*** Variables ***</code> section of a suite file, or in the *** Variables *** section of a resource file that is imported into the suite. The VAR syntax with the flag <code>scope=SUITE</code> can also be used to set suite scope variables. Suite scope variables are available in all test cases and keywords in the suite, but not in other suites.<br><br>
+        Test case scope variables are typically set dynamically during test execution, either by being returned from keywords or by being set with the VAR syntax without the <code>scope=GLOBAL</code> or <code>scope=SUITE</code> flag. Test case scope variables are only available within the test case they are defined in, and not in other test cases or keywords. <br><br>
+        Variables can also exist within keywords only in what is called local scope. These are typically set dynamically during keyword execution and are only available within the keyword they are defined in. They can be created by using the VAR syntax without any scope flag, or by being returned from other keywords called within the keyword. <br><br>
+        </p> 
+
+        </div>
+        <div class="example-code">
+            <pre><code><span class="section-header">*** Variables ***</span>
+<span class="var">${SATELLITE}</span>   <span class="str">voyager</span>    <span class="comment"># Global variable</span>    
+
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Test Case 1</span>
+    <span class="kw-stg">VAR</span>    <span class="var">${sensor}</span>    <span class="str">temperature_sensor</span>    <span class="comment"># Variable with test scope</span>
+    <span class="kw-stg">VAR</span>    <span class="var">${ssh_key}</span>    <span class="str">123456</span>       scope=GLOBAL    <span class="comment"># Variable with global scope</span>
+    <span class="kw-call">Example Keyword</span>
+    <span class="kw-call">Log</span>    <span class="str">Local variable is </span><span class="var">${local_var}</span>    <span class="comment"># This will not work because ${local_var} is only available within the keyword it is defined in, in this case Example Keyword</span>
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Example Keyword</span>
+    <span class="kw-stg">VAR</span>    <span class="var">${local_var}</span>    <span class="str">local value</span>    <span class="comment"># Variable with local scope</span>
+    <span class="kw-call">Another Keyword</span>    <span class="var">${local_var}</span>
+    <span class="kw-call">Log</span>    <span class="str">Satellite is </span><span class="var">${SATELLITE}</span>    <span class="comment"># This will work as Satellite is a suite level variable</span>
+    <span class="kw-call">Log</span>    <span class="str">Sensor is </span><span class="var">${sensor}</span>    <span class="comment"># This will work if example keyword is called by a test case or other instance where ${sensor} is defined</span>
+
+</code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

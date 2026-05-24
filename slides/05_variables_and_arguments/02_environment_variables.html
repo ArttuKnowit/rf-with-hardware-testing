@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Environment Variables</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Environment Variables</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Environment variables are used to access variables set in the operating system before the test execution. This allows easily accessing all OS environment variables just like one would from the command line. Environment variables can also be created or deleted with keywords <code>Set Environment Variable</code> and <code>Delete Environment Variable</code> which are available in the built-in OperatingSystem library. Environment variables are always global.<br><br>
+        </p> 
+
+        </div>
+        <div >
+            <pre><code><span class="section-header">
+<span class="section-header">*** Test Cases ***</span>
+<span class="tc-name">Check Environment Variables</span>
+    <span class="kw-call">Log</span>    <span class="str">Current user is</span> <span class="var">%{USER}</span>
+    <span class="kw-call">Run</span>    <span class="var">%{JAVA_HOME}</span><span class="str">/javac</span>
+
+<span class="tc-name">Use Environment Variable With Default Value</span>
+    <span class="kw-call">Set Environment Variable</span>    <span class="var">%{APPLICATION_PORT=8080}</span>
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

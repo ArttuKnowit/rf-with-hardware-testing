@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>The __init__.robot file</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>The __init__.robot File</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+            To set settings for the suite that is a directory that contains multiple test case fales, an <code>__init__.robot</code> file can be used. In that file<br><br>
+                    
+        </p> 
+
+        </div>
+        <div>
+            <pre><code><span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">CustomLibrary.py</span>
+<span class="suite-stg">Resource</span>    <span class="import">arduino_led_control.resource</span>
+<span class="suite-stg">Variables</span>    <span class="import">variables.py</span>
+<span class="suite-stg">Suite Setup</span>    <span class="kw-call">Connect To Device</span>    <span class="var">${SERIAL_PORT}</span>
+<span class="suite-stg">Suite Teardown</span>    <span class="kw-call">Disconnect From All Devices</span>
+
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Suite Test Case Setup Task</span>
+    <span class="kw-stg">[Documentation]</span>    Common setup task for all sub suites in this suite.
+    <span class="kw-stg">[Arguments]</span>     <span class="var">${port}</span>
+    <span class="kw-call">Connect To Device</span>    <span class="var">${port}</span>
+
+<span class="kw-name">Suite Test Case Teardown Task</span>
+    <span class="kw-stg">[Documentation]</span>    Common teardown task for all sub suites in this suite.
+    <span class="kw-call">Disconnect From All Devices</span>
+
+</code></pre>
+<br><br>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>
