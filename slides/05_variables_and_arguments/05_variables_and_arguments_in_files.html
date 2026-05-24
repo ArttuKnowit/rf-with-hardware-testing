@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Variables and Arguments in Files</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Variables and Arguments in Files</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Lists and dictionaries are native data structures in robot framework. Both work as "normal" scalar variables by using them with the <code>${variable_name}</code> syntax, but also provide more advanced operations for handling multiple values and key-value pairs. <br><br>
+        Lists are defined using the <code>@{variable_name}</code> syntax and can be created using the <code>Create List</code> keyword. They can be accessed using index notation (e.g., <code>${my_list}[0]</code>) and can be iterated over using keywords like <code>FOR</code> loops. Lists also support various operations such as appending, extending, and slicing. The difference between the two syntaxes is that <code>${list_name}</code> is used when accessing the whole list as an object, while <code>@{list_name}</code> is used when unpacking the list.<br><br>
+        Similarly, dictionaries can also be accessed as individual objects or by unpacking them. They are defined using the <code>&{variable_name}</code> syntax and can be created using the <code>Create Dictionary</code> keyword. They can be accessed using key notation (three different ways, either, <code>${my_dict['key']}</code>, <code>${my_dict}[key]</code> or <code>${my_dict.key}</code>) and can be iterated over using keywords like <code>FOR</code> loops.<br><br>
+        Robot Framework is not as flexible for handling lists and dictionaries as a programming language like python, and most functionality for this is done with helper keywords from the built-in Collections library. For more complex data handling, it is often easier to use custom libraries in python that can handle lists and dictionaries more flexibly and then call those keywords from the robot framework test cases.
+        </p> 
+
+        </div>
+        <div >
+            <pre><code>
+PORT = "/dev/ttyACM0"
+LED_COLORS = ["Red", "Green", "Blue"]
+LED_OBJECT = {"PIN": 0, "COLOR": "Red"}
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

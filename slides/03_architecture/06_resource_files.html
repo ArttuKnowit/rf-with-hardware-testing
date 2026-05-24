@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Resource files</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Resource files</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+        Resource files provide a Robot Framework native method of separating tests and keywords. Their main purpose is to allow organising keywords into resource files that can be imported to test suites where needed. A resource file is a file written in Robot Framework syntax, with a file extension <code>.resource</code> that can contain anything that a suite file can except for the <code>*** Test Cases ***</code> or <code>*** Tasks ***</code> sections.<br><br>
+        
+        </p> 
+
+        </div>
+        <div >
+<details class="spoiler">
+    <summary>CustomLibrary.py</summary>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+<span class="py-ctrl">import</span> <span class="py-lib">serial</span>
+
+<span class="py-deco">@library</span>
+<span class="py-kw">class</span> <span class="py-obj">CustomLibrary</span>:
+    <span class="py-kw">def</span> <span class="py-func">__init__</span>(<span class="py-var">self</span>):
+        <span class="py-var">self.connection</span> = <span class="py-const">None</span>
+
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">connect_to_device</span>(<span class="py-var">self</span>, <span class="py-var">serial_port</span>,
+                          <span class="py-var">baudrate</span>=<span class="py-const">9600</span>, <span class="py-var">timeout</span>=<span class="py-const">2</span>):
+        <span class="py-var">self.connection</span> = <span class="py-lib">serial</span>.<span class="py-obj">Serial</span>(
+            <span class="py-var">port</span>=<span class="py-var">serial_port</span>,
+            <span class="py-var">baudrate</span>=<span class="py-var">baudrate</span>,
+            <span class="py-var">timeout</span>=<span class="py-var">timeout</span>
+        )
+
+</code></pre>
+</details>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

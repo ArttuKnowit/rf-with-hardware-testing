@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Libraries</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Custom Libraries</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+        Listeners are a tool the interact with Robot Framework during test execution, and affecting the execution itself. Listeners use Robot Framework's internal API to get data from the execution, such as whether a test passed or failed, what keywords were executed, and more. It allows pythonic code to be executed based on the execution of the test suite.<br><br>
+        Listeners are useful for example for logging, debugging, and reporting purposes. They can be used to log additional information during test execution, or to create custom reports based on the execution data. They can also be used to affect the execution itself, for example by skipping certain tests based on certain conditions, or by modifying the test data during execution.<br><br>
+        Listeners are implemented as python classes that inherit from the <code>robot.api.interfaces</code> modules ListenerV2 or ListenerV3. They have built-in methods such as <code>start_test</code> or <code>end_keyword</code> which allow coding specific actions or scripts to be executed whenever these events are encoutnered and executed by Robot Framework.<br><br>
+        </p> 
+
+        </div>
+        <div >
+<details class="spoiler">
+    <summary>ArduinoListener.py</summary>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot</span> <span class="py-ctrl">import</span> <span class="py-obj">result, running</span>
+<span class="py-ctrl">from</span> <span class="py-lib">robot.api.interfaces</span> <span class="py-ctrl">import</span> <span class="py-obj">ListenerV3</span>
+
+<span class="py-kw">class</span> <span class="py-obj">ArduinoListener</span>(<span class="py-obj">ListenerV3</span>):
+
+    <span class="py-kw">def</span> <span class="py-func">start_test</span>(<span class="py-var">self</span>, <span class="py-var">data</span>: <span class="py-lib">running</span>.<span class="py-obj">Test</span>, <span class="py-var">result</span>: <span class="py-lib">result</span>.<span class="py-obj">Test</span>):
+        <span class="py-func">print</span>(<span class="str">f"Test '{data.name}' starting."</span>)
+
+    <span class="py-kw">def</span> <span class="py-func">end_keyword</span>(<span class="py-var">self</span>, <span class="py-var">data</span>: <span class="py-lib">running</span>.<span class="py-obj">Keyword</span>, <span class="py-var">result</span>: <span class="py-lib">result</span>.<span class="py-obj">Keyword</span>):
+        <span class="py-func">print</span>(<span class="str">f"Keyword '{data.name}' ended with status {result.status}."</span>)
+</code></pre>
+</details>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

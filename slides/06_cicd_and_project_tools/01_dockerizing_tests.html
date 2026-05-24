@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dockerizing Robot tests</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Dockerizing Robot tests</h1>
+    <div class="side-by-side">
+        <div>
+        <p>In case you are familiar with Docker, it will not come as a surprise that Robot Framework tests can be containerised with it. Containerisation can be a great way to ensure that the tests are run in a consistent environment and that all the dependencies are properly managed. It also allows running tests in an environment that is as close to production as possible, which can help to catch issues that might not be visible in a local development environment. <br><br>
+        Each Dockerized case is unique but a good checklist for a Dockerfile for Robot Framework tests is:
+        <ol>
+            <li>Ensure you use a base image that has python installed</li>
+            <li>Copy all necessary files such as test suites, resources, libraries and test data, as well as requirements files for installing dependencies</li>
+            <li>Install dependencies with pip (or uv if you have a Docker image with uv installed)</li>
+            <li>Define the run command in the Dockerfile in a way that allows passing necessary environment variables and other run parameters</li>
+            <li>Order the steps in the Dockerfile to optimize caching and build times. If you expect to rarely include new dependencies and often change the test code, place the dependency installation steps before copying the test code.</li>
+            <li>Use a run command in the machine that runs the tests that gives the correct volume of results out, as well as other parameters, gives access to networks etc.</li>
+        </ol>
+        </p> 
+
+        </div>
+        <div >
+            <pre><code>
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY suites/ /app/suites
+COPY resources/ /app/resources
+COPY libraries/ /app/libraries
+COPY data/ /app/data
+COPY requirements.txt /app/requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["robot", "--outputdir", "/app/results", "-v", "PORT:/dev/ttyACM0", "/app/suites"]
+
+</code></pre>
+
+Run with command
+
+<pre><code>docker build -t robot-tests .
+docker run --rm --device /dev/ttyACM0:/dev/ttyACM0 -v $(pwd)/results:/app/results robot-tests
+</code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

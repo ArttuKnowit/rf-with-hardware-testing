@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Libraries</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Custom Libraries</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+        Custom libraries are a powerful and almost a standard way to extending Robot Framework's functionality, or to provide it proper functionality to begin with. While they don't need to be strictly written in python, it is the most practical and viable way. The Robot Framework's own classes and methods are designed for building custom libraries in python, and the documentation and community support it best.<br><br>
+        Custom libraries are imported in the settings section of a suite file just like any other library, and they can be used just like any other library. While it is possible to write individual functions in a custom library and import them into Robot Framework, the standard way is to create a Library Class, which is imported as an object into the test suite. The methods of the class are then used as keywords.<br><br>
+        There is an example to the right, and you may take a look at ArduinoLib.py found in the <code>libraries</code> directory.<br><br>
+        Writing a library is straight forward. Import dependencies as you would normally and create a class object that shares the name with the file itself but without the .py extension (so for example, in a file called <code>ArduinoLib.py</code> you should create a class called <code>ArduinoLib</code>). Import the keyword and library decorators from <code>robot.api.deco</code>, and decorate the class with <code>@library</code> and the methods you want to use as keywords with <code>@keyword</code>. The method names will be the keyword names, but you can also specify a custom name for the keyword in the decorator if you want to.<br><br>
+        The library is imported with the file reference, so taking into account the relative path. However, if a more structured python package is created with it's own wheel, it can be isntalled to the environment and imported just like any other library.
+        </p> 
+
+        </div>
+        <div >
+<details class="spoiler">
+    <summary>CustomLibrary.py</summary>
+<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+<span class="py-ctrl">import</span> <span class="py-lib">serial</span>
+
+<span class="py-deco">@library</span>
+<span class="py-kw">class</span> <span class="py-obj">CustomLibrary</span>:
+    <span class="py-kw">def</span> <span class="py-func">__init__</span>(<span class="py-var">self</span>):
+        <span class="py-var">self.connection</span> = <span class="py-const">None</span>
+
+    <span class="py-deco">@keyword</span>
+    <span class="py-kw">def</span> <span class="py-func">connect_to_device</span>(<span class="py-var">self</span>, <span class="py-var">serial_port</span>,
+                          <span class="py-var">baudrate</span>=<span class="py-const">9600</span>, <span class="py-var">timeout</span>=<span class="py-const">2</span>):
+        <span class="py-var">self.connection</span> = <span class="py-lib">serial</span>.<span class="py-obj">Serial</span>(
+            <span class="py-var">port</span>=<span class="py-var">serial_port</span>,
+            <span class="py-var">baudrate</span>=<span class="py-var">baudrate</span>,
+            <span class="py-var">timeout</span>=<span class="py-var">timeout</span>
+        )
+
+</code></pre>
+</details>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

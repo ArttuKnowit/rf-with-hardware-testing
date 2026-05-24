@@ -18,16 +18,12 @@
                         <li><b>Optional arguments</b> are arguments that are not required because they have an existing default value.</li>
                     </ul>
                 </li>
-                <li>
+                <li>By their <b>kind</b>:
                     <ul>
-                        <li>By their <b>kind</b>:
-                            <ul>
-                                <li><b>Positional arguments</b> are arguments that are assigned based on their position in the argument list.</li>
-                                <li><b>Named-only arguments</b> are arguments that are assigned based on their name, allowing them to be specified in any order.</li>
-                                <li><b>Variable number of positional arguments</b> (a monstrous word I've voted to be changed in the official syllabus) are arguments that allow a keyword to accept any number of positional arguments. Essentially the same as python's <code>my_function(*args)</code></li>
-                                <li><b>Free named arguments</b> are arguments that can accept any number of additional named arguments not explicitly defined in the keyword. Essentially the same as python's <code>my_function(**kwargs)</code></li>
-                            </ul>
-                        </li>
+                        <li><b>Positional arguments</b> are arguments that are assigned based on their position in the argument list.</li>
+                        <li><b>Named-only arguments</b> are arguments that are assigned based on their name, allowing them to be specified in any order.</li>
+                        <li><b>Variable number of positional arguments</b> (a monstrous word I've voted to be changed in the official syllabus) are arguments that allow a keyword to accept any number of positional arguments. Essentially the same as python's <code>my_function(*args)</code></li>
+                        <li><b>Free named arguments</b> are arguments that can accept any number of additional named arguments not explicitly defined in the keyword. Essentially the same as python's 
                     </ul>
                 </li>
             </ul>
@@ -37,15 +33,21 @@
         <div class="example-code">
 
 <pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
+<span class="py-ctrl">import</span> <span class="py-lib">subprocess</span>
 
 <span class="py-deco">@library</span>
 <span class="py-kw">class</span> <span class="py-obj">SatelliteLib</span>:
     <span class="py-deco">@keyword</span>
     <span class="py-kw">def</span> <span class="py-func">run_command_on_satellite</span>(<span class="py-var">self</span>, <span class="py-var">target_machine</span>,
-                                    *<span class="py-var">commands</span>, <span class="py-var">cli_type</span>=<span class="str">"ssh"</span>, **<span class="py-var">options</span>):
-        <span class="py-kw">pass</span>
+                                 *<span class="py-var">commands</span>, <span class="py-var">cli_type</span>=<span class="str">"ssh"</span>, **<span class="py-var">options</span>):
+        <span class="py-var">cmd</span> = [<span class="py-var">cli_type</span>, <span class="py-var">target_machine</span>] + <span class="py-func">list</span>(<span class="py-var">commands</span>)
+        <span class="py-var">timeout</span> = <span class="py-var">options</span>.<span class="py-func">get</span>(<span class="str">"timeout"</span>, <span class="py-const">None</span>)
+        <span class="py-var">result</span> = <span class="py-lib">subprocess</span>.<span class="py-func">run</span>(
+            <span class="py-var">cmd</span>, capture_output=<span class="py-const">True</span>, text=<span class="py-const">True</span>, timeout=<span class="py-var">timeout</span>
+        )
+        <span class="py-kw">return</span> <span class="py-var">result</span>.stdout
 </code></pre>
-
+<br>
 <pre><code><span class="section-header">*** Settings ***</span>
 <span class="suite-stg">Library</span>    <span class="import">SatelliteLib.py</span>
 
