@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Arguments in python files</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Arguments in Python Files</h1>
+    <div class="side-by-side">
+        <div>
+        <p>As python is used heavily, it is important to consider how passing arguments to python is generally done. In Robot Framework, all arguments are string-first, and it is generally not possible to create variables outside basic data types (strings, integers, floats, booleans) or structures (scalars, lists, dictionaries) in Robot Framework itself. However, when calling for keywords defined in python, it is possible to pass more complex value types to arguments.<br><br>
+        The example test case on the right will have two arguments that are inherently strings, but when passed to the Evaluate keyword, the whole statement (a string) is evaluated using python's eval function. This is just one example of python 
+
+        </p> 
+
+        </div>
+        <div >
+            <pre><code>
+*** Test Cases ***
+Example Test Case 1
+    VAR    ${arg1}    1
+    VAR    ${arg2}    2
+    Should Be Greater Than    ${arg2}   ${arg1}
+    Should Be Equal In Length    ${arg1}    ${arg2}
+
+            </code></pre>
+        </div>
+    </div>
+</body>
+<style></style>
+</html>
