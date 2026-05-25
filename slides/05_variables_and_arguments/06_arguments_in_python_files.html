@@ -11,7 +11,7 @@
     <div class="side-by-side">
         <div>
         <p>As python is used heavily, it is important to consider how passing arguments to python is generally done. In Robot Framework, all arguments are string-first, and it is generally not possible to create variables outside basic data types (strings, integers, floats, booleans) or structures (scalars, lists, dictionaries) in Robot Framework itself. However, when calling for keywords defined in python, it is possible to pass more complex value types to arguments.<br><br>
-        The example test case on the right will have two arguments that are inherently strings, but when passed to the Evaluate keyword, the whole statement (a string) is evaluated using python's eval function. This is just one example of python 
+        The example test case on the right will have two arguments that are inherently strings, but really represent numbers.
 
         </p> 
 
@@ -22,8 +22,9 @@
 Example Test Case 1
     VAR    ${arg1}    1
     VAR    ${arg2}    2
-    Should Be Greater Than    ${arg2}   ${arg1}
-    Should Be Equal In Length    ${arg1}    ${arg2}
+    Should Not Be Equal As Numbers    ${arg2}   ${arg1}    # Works because keyword arguments are converted into correct type
+
+    Log    ${arg1 + 1}    # Does not work because we are trying to add a number to a string, no type-conversion done
 
             </code></pre>
         </div>

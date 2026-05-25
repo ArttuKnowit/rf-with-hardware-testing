@@ -1,6 +1,6 @@
 # Robot Framework with hardware testing - Course
 
-This course is for adept software testers and python users for getting a good grasp on efficient usage of Robot Framework. This course will utilise basic hardware testing with an Arduino based system. The course is planned to take place over two days, and will include lots of practical work with testing several Arduino setups, some theory and slides, using tools affiliated with Robot Framework such as Docker and robotidy.
+This course is for adept software testers and python users for getting a good grasp on efficient usage of Robot Framework. This course will utilise basic hardware testing with an Arduino based system. The course is planned to take place over two days, and will include lots of practical work with testing several Arduino setups, some theory and slides, using tools affiliated with Robot Framework such as Docker and robotidy. The isntructor will cover some slides, show examples, and lead practical work. You will work in pairs and share one Arduino device between you, although you can both still implement your own solutions in code.
 
 ## 1 System setup
 

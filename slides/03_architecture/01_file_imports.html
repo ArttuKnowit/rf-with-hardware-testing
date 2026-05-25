@@ -1,0 +1,34 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>File imports</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>File Imports</h1>
+    <div class="side-by-side">
+        <div>
+        <p>
+        Of course everything is not in a single file. Typically the code in the definition layers is separated into following levels:
+        <ul>
+            <li>Test cases and test definitions in separate files and directories</li>
+            <li>Re-usable keywords in their own resource folder in <code>.resource</code> files that follow Robot Framework syntax</li>
+            <li>Python files to extend Robot Framework's functionality in either the resources directory or a dedicated library folder</li>
+            <li>Possible listeners in a dedicated listeners folder or the libraries folders</li>
+            <li>Test data in a dedicated data folder in preferred format, such as .json, .csv, .yaml</li>
+            <li>Other configuration files, linting rules, and documentation in preferred folders or in project root</li>
+        </ul>
+        </p>
+        <p>
+            Test cases and test definitions are .robot files and the re-usable keywords are .resource files. Keywords should be split into several resource files based on their functionality, and then imported into the test case files only when needed. Similarly, each library should cover one area of functionality and be imported only when needed. This way the test cases are not cluttered with unnecessary keywords and libraries, and it is easier to understand which keywords are used in which test cases.
+        </p>
+        <p>It is possible to import everything into one resource file and then import that resource file into every single test case. <b>This is not recommended</b> and usually leads to unnecessary or even conflicting imports. A good practice is to organize keywords and libraries based on their functionality and import them only when needed.</p>
+
+        </div>
+
+    </div>
+</body>
+<style></style>
+</html>

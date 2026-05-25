@@ -10,7 +10,7 @@
     <h1>Robot Framework - General syntax</h1>
     <div class="side-by-side">
         <div>
-        <p>Similar to python and unlike to many other programming languages, Robot Framework has syntactically significant line changes, indentation, and spaces.
+        <p>Similar to python and unlike to many other programming languages, Robot Framework has syntactically significant line changes, indentation, and spacing.
         <br><br>One <b>logical line</b> in Robot Framework can be made up of multiple actual lines by using the line continuation character <code>...</code>. This is often used to make long keyword calls more readable, or to split a long list of arguments into multiple lines. A logical line ends with an end-of-line token, which is typically a newline character, unless the next line starts with the line continuation token <code>...</code>.
         <br><br>Indentation is used to determine which lines are part of a test case or keyword, and which lines start the definition of a new test case or keyword. The first line of the test case name is not indented and determines its name. All subsequent lines that are indented are considered part of that test case until another non-indented line is encountered, or a new section is called. The same applies to keyword definitions. Four spaces should be used for indentation.
         <br><br>Any two entities (variables, keywords, control structures) are separated with a <b>separator token</b>. Use at least two consecutive spaces as a separator token. <b>The convention generally used is FOUR (4) spaces.</b> The same separation is also used for indentation.
