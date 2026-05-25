@@ -1,8 +1,5 @@
 *** Settings ***
-Library           ../../libraries/ArduinoLib.py
-
-Suite Setup       Connect To Device    ${PORT}
-Suite Teardown    Disconnect From Device
+Resource          ../../resources/arduino_keywords.resource
 
 Test Setup        Reset LED Configuration
 
@@ -20,6 +17,7 @@ Initial LED Is Zero
 
 Button Press Advances To LED 1
     Write Serial    PressButton
+    Sleep    1s
     ${led}=    Read Serial
     Should Be Equal As Strings    ${led}    ${LED_1}
 

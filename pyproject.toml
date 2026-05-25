@@ -5,7 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "numpy>=2.4.6",
     "pyserial>=3.5",
     "robotframework>=7.4.2",
     "robotframework-dashboard>=2.0.0",
+    "robotframework-libtoc>=1.7.0",
+    "robotframework-robocop>=8.2.8",
 ]

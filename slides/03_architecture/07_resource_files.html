@@ -12,29 +12,35 @@
         <div>
         <p>
         Resource files provide a Robot Framework native method of separating tests and keywords. Their main purpose is to allow organising keywords into resource files that can be imported to test suites where needed. A resource file is a file written in Robot Framework syntax, with a file extension <code>.resource</code> that can contain anything that a suite file can except for the <code>*** Test Cases ***</code> or <code>*** Tasks ***</code> sections.<br><br>
-        
+        It is good practise to store most if not all user keywords in resource files, so they can be more easily imported and reused across different files. Variables can also be defined in resource files, but it is best used only in the case the same variable is useful across many different keywords in that resource file, or if for example wanting to define a variable with a lower priority in the resource file with the intention of over-writing it through the command line.
         </p> 
 
         </div>
         <div >
 <details class="spoiler">
-    <summary>CustomLibrary.py</summary>
-<pre><code><span class="py-ctrl">from</span> <span class="py-lib">robot.api.deco</span> <span class="py-ctrl">import</span> <span class="py-func">library, keyword</span>
-<span class="py-ctrl">import</span> <span class="py-lib">serial</span>
+    <summary>keywords.resource</summary>
+<pre><code>
+<span class="section-header">*** Settings ***</span>
+<span class="suite-stg">Library</span>    <span class="import">ArduinoLib.py</span>
 
-<span class="py-deco">@library</span>
-<span class="py-kw">class</span> <span class="py-obj">CustomLibrary</span>:
-    <span class="py-kw">def</span> <span class="py-func">__init__</span>(<span class="py-var">self</span>):
-        <span class="py-var">self.connection</span> = <span class="py-const">None</span>
 
-    <span class="py-deco">@keyword</span>
-    <span class="py-kw">def</span> <span class="py-func">connect_to_device</span>(<span class="py-var">self</span>, <span class="py-var">serial_port</span>,
-                          <span class="py-var">baudrate</span>=<span class="py-const">9600</span>, <span class="py-var">timeout</span>=<span class="py-const">2</span>):
-        <span class="py-var">self.connection</span> = <span class="py-lib">serial</span>.<span class="py-obj">Serial</span>(
-            <span class="py-var">port</span>=<span class="py-var">serial_port</span>,
-            <span class="py-var">baudrate</span>=<span class="py-var">baudrate</span>,
-            <span class="py-var">timeout</span>=<span class="py-var">timeout</span>
-        )
+<span class="section-header">*** Keywords ***</span>
+<span class="kw-name">Reset LED Configuration</span>
+    <span class="kw-stg">[Documentation]</span>   <span class="str">Resets the LED configuration to the initial state.</span>
+    <span class="kw-call">Write Serial</span>    <span class="str">SetLed 0</span>
+    <span class="kw-call">Read Serial</span>
+
+<span class="kw-name">LED Should Be Active</span>
+    <span class="kw-stg">[Documentation]</span>        <span class="str">Checks if the LED connected to the specified pin index is active based on the voltage threshold.</span>
+    <span class="kw-stg">[Arguments]</span>    <span class="var">${pin_index}</span>    <span class="var">${threshold}</span>
+    <span class="var">${voltage}</span>=    <span class="kw-call">Read Analog Voltage</span>    <span class="var">${pin_index}</span>
+    <span class="kw-call">Should Be True</span>    <span class="var">${voltage}</span> >= <span class="var">${threshold}</span>
+    ...    <span class="str">LED on A${pin_index} expected to be active but measured ${voltage}V</span>
+
+<span class="kw-name">Press Button</span>
+    <span class="kw-stg">[Tags]</span>    <span class="str">interaction</span>
+    <span class="kw-call">Write Serial</span>    <span class="str">PressButton</span>
+    <span class="kw-call">Read Serial</span>
 
 </code></pre>
 </details>

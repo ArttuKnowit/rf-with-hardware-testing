@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Configuration Files</title>
+    <link rel="stylesheet" href="../_static/slides.css"> 
+    <script src="../_static/slides-data.js"></script>
+    <script src="../_static/utils.js" defer></script>
+</head>
+<body>
+    <h1>Configuration Files</h1>
+    <div class="side-by-side">
+        <div>
+        <p>Robocop is best used with a configuration file, such as robocop.toml. This file allows you to specify the rules you want to use, as well as any custom rules you may have created. You can also specify the severity of the issues found, and whether you want to automatically fix any issues found. The configuration file can be placed in the root of your project, and it will be automatically detected by robocop when you run it. This allows you to have a consistent set of rules and configurations across your project, and makes it easier to maintain and enforce coding standards.
+        </p> 
+
+        </div>
+        <div >
+<pre><code>
+[tool.robocop]
+exclude = ["deprecated.robot"]
+include = ["custom.txt"]
+language = ["en", "pl"]
+
+[tool.robocop.lint]
+select = [
+    "rulename",
+    "ruleid"
+]
+extend-select = [
+    "additional-rule"
+]
+ignore = [
+    "ruleid"
+]
+reports = ["all", "sarif"]
+persistent = true
+compare = true
+configure = [
+    "line-too-long.line_length=110"
+]
+
+[tool.robocop.format]
+select = ["NormalizeNewLines"]
+extend-select = ["CustomFormatter.py"]
+configure = [
+    "NormalizeNewLines.section_lines=1"
+]
+diff = true
+line_length = 110
+skip = [
+    "documentation"
+]
+reruns = 3
+        </div>
+    </div>
+</body>
+<style></style>
+</html>

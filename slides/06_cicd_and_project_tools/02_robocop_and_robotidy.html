@@ -1,25 +1,38 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Robocop and Robotidy</title>
+    <title>Robocop and linting</title>
     <link rel="stylesheet" href="../_static/slides.css"> 
     <script src="../_static/slides-data.js"></script>
     <script src="../_static/utils.js" defer></script>
 </head>
 <body>
-    <h1>Robocop and Robotidy</h1>
+    <h1>Robocop and linting</h1>
     <div class="side-by-side">
         <div>
-        <p>Robocop and Robotidy are tools for linting and formatting robot framework test cases. Robocop is a linter that checks the code against a set of rules and provides feedback on any issues found. Robotidy is a formatter that automatically formats the code according to a set of rules. Both tools can be used to improve the readability and maintainability of robot framework test cases, as well as to enforce coding standards and best practices. They can be integrated into the development workflow, such as in a CI/CD pipeline, to ensure that the code is always in a good state.
+        <p>Robocop is a tool for linting and formatting robot framework test cases. A linter checks the code against a set of rules and provides feedback on any issues found. It also works as a formatter that automatically formats the code according to a set of rules, where automatic fixes are possible. The tool can be used to improve the readability and maintainability of robot framework test cases, as well as to enforce coding standards and best practices. It can be integrated into the development workflow, such as in a CI/CD pipeline, to ensure that the code is always in a good state.<br><br>
+        Please check the documentation on robocop <a href="https://robocop.dev/stable/user_guide/intro/">here</a> for more information. The code example/running instructions on the right is borrowed from the documentation.
         </p> 
 
         </div>
         <div >
-            <pre><code>
+<pre><code>
+uv add robotframework-robocop
+# or
+pip install robotframework-robocop
 
+# Run the check command to see the issues in the code
+robocop check                  # lint Robot files in the current directory and subdirectories
+robocop check -h               # list all available options
+robocop check path             # lint Robot files in the given path
 
+# Use robocop format to automatically fix formatting issues
+robocop format                 # format Robot files in the current directory and subdirectories
+robocop format -h              # list all available options
+robocop format path            # format Robot files in the given path
+robocop format --diff          # format files and show difference after formatting
+robocop format --no-overwrite  # format files but don't overwrite them (combine with --diff for dryrun)
 </code></pre>
-
         </div>
     </div>
 </body>

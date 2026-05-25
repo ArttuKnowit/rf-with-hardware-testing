@@ -1,8 +1,5 @@
 *** Settings ***
-Library           ../../libraries/ArduinoLib.py
-
-Suite Setup       Connect To Device    ${PORT}
-Suite Teardown    Disconnect From Device
+Resource           ../../resources/arduino_keywords.resource
 
 
 *** Variables ***

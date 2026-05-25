@@ -6,7 +6,7 @@ import time
 
 @library
 class ArduinoLib:
-    ROBOT_LIBRARY_SCOPE = 'SUITE'
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
 
     def __init__(self):
         self.connection = None

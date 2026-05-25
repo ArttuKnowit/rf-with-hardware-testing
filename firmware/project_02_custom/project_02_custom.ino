@@ -4,15 +4,9 @@ const int BUTTON_PIN = 2;
 const int LED_PINS[] = {3, 4, 5};
 const int PINS[] = {0, 1, 2, 3, 4, 5};
 const int LED_COUNT = 3;
-const int ANALOG_PIN_COUNT = 6;
 
 int currentLed = 0;
 int lastButtonState = LOW;
-
-float readAnalogVoltage(int pinIndex) {
-    int rawValue = analogRead(pinIndex);
-    return rawValue * (5.0 / 1023.0);
-}
 
 void setLed(int index) {
     for (int i = 0; i < LED_COUNT; i++) {
